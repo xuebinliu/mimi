@@ -1,8 +1,6 @@
-<loading hidden="{{loading}}">
-  加载中...
-</loading>
+
 <import src="../template/list.wxml" />
-<!--<scroll-view  lower-threshold="1" bindscrolltolower="pullUpLoad" upper-threshold="0" scroll-y="true" style="height: {{windowHeight1}}px; width: {{windowWidth1}}px; " scroll-top="{{scrollTop.scroll_top1}}" bindscroll="scrollTopFun">-->
+
 <view class="index_list">
   <navigator url="../listDetail/listDetail?moodId={{item.id}}" hover-class="navigator-hover" wx:for-items="{{moodList}}" wx:key="moodListId" wx:if="{{item.id}}">
     <template is="listHeader" data="{{userPic:item.avatar,userNick:item.username,publishTime:item.created_at}}" />
@@ -13,9 +11,11 @@
     </view>
   </navigator>
 </view>
-<!--</scroll-view>-->
-<view class="bord"></view>
 
+<view class="bord"/>
 
-<view class="returnTop"  wx:if="{{scrollTop.goTop_show}}" catchtap="goTopFun">
-</view>
+<text class="noData" wx:if="{{moodList.length<=0}}">
+  亲，这里还没有秘密，赶快分享一个吧:)
+</text>
+
+<navigator class="toWrite" url="../write/write"/>

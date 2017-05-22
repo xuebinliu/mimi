@@ -1,7 +1,5 @@
 {
   "pages":[
-    
-    "pages/mail/mail",
     "pages/index/index",
     "pages/listDetail/listDetail",
     "pages/mine/mine",
@@ -10,14 +8,11 @@
     "pages/newList/newList",
     "pages/protocol/protocol",
     "pages/about/about"
-    
-
   ],
   "window":{
     "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#FEFEFE",
     "navigationBarTextStyle":"black",
-    "navigationBarTitleText": "信箱",
     "enablePullDownRefresh":true
   },
   "tabBar": {
@@ -27,20 +22,21 @@
     "selectedColor":"#1e1e1e",
     "list": [{
       "pagePath": "pages/index/index",
-      "selectedIconPath":"static/images/heart1.png",
-      "iconPath":"static/images/heart.png",
-      "text": "心情"
-    }, {
-      "pagePath": "pages/mail/mail",
       "selectedIconPath":"static/images/email1.png",
       "iconPath":"static/images/email.png",
-      "text": "信箱"
+      "text": "附近"
     }, {
       "pagePath": "pages/mine/mine",
       "selectedIconPath":"static/images/mine1.png", 
       "iconPath":"static/images/mine.png",
       "text": "我"
     }]
-  }
-
+  },
+  "networkTimeout": {
+    "request": 20000,
+    "connectSocket": 20000,
+    "uploadFile": 20000,
+    "downloadFile": 20000
+  },
+  "debug":true
 }

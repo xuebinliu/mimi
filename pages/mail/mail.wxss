@@ -53,7 +53,6 @@ navigator {
   font-size: 18px;
   color: #1e1e1e;
   margin-bottom: 16rpx;
-  margin-bottom: 16rpx;
 }
 
 .listContent {
@@ -102,6 +101,7 @@ navigator {
   z-index: 2;
   background: #000;
 }
+
 .returnTop{
   width:100rpx;
   height: 100rpx;
@@ -114,4 +114,30 @@ navigator {
   border-bottom: 0;
   border-top: 0;
 }
-/*.bord{height:1px;width:100%;position:fixed;bottom: 0;left:0;background:#ccc;}*/
+
+.toWrite {
+  width: 100rpx;
+  height: 100rpx;
+  background: url(http://bmob-cdn-7744.b0.upaiyun.com/2016/11/29/360d32564024a5ab80e4477169949473.png) no-repeat;
+  padding: 0;
+  background-size: cover;
+  position: fixed;
+  right: 74rpx;
+  bottom: 100rpx;
+  border-bottom: 0;
+  border-top: 0;
+}
+
+.noData {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  top: 30%;
+  margin-top: -20rpx;
+  padding: 40rpx;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 26px;
+  color: #b5b5b5;
+}
