@@ -7,7 +7,6 @@ function bombLogin() {
   try {
     var value = wx.getStorageSync('user_openid')
     if (value) {
-      // 已经登录过的用户
       console.log("老用户启动")
     }
     else {
@@ -74,16 +73,14 @@ function bombLogin() {
 
 function saveUserInfo(user) {
   try {
-    app.globalData.user_id = user.id;
-    
-    wx.setStorageSync('user_openid', user.get("userData").openid)
     wx.setStorageSync('user_id', user.id);
+    wx.setStorageSync('user_openid', user.get("userData").openid)
     wx.setStorageSync('my_nick', user.get("nickname"))
     wx.setStorageSync('my_username', user.get("username"))
     wx.setStorageSync('my_avatar', user.get("userPic"))
   } catch (e) {
+    console.log(e)
   }
-  console.log("登录成功");
 }
 
 module.exports.bombLogin = bombLogin;

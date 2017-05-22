@@ -12,7 +12,6 @@ Page({
     title: "",
     content: "",
     autoFocus: true,
-    loading: false,
     isdisabled: false
   },
 
@@ -88,6 +87,9 @@ Page({
         file.save();
         diary.set("pic", file);
       }
+
+      console.log('sendNewMood user_id', me.id)
+
       diary.save(null, {
         success: function (result) {
           that.setData({

@@ -10,6 +10,7 @@ Page({
   },
 
   onReady: function() {
+    common.getUserId()
     loadData(this)
   },
 
@@ -41,7 +42,6 @@ Page({
       path: '/pages/index/index'
     }
   },
-
 })
 
 // 加载数据

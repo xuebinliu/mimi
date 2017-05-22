@@ -1,5 +1,5 @@
 <view class="add_pic" bindtap="uploadPic" wx-if="{{!isSrc}}">
-  <view>添加图片（选）</view>
+  <view>添加图片(可选)</view>
 </view>
 
 <view wx:if="{{isSrc}}" class="image_box">
@@ -9,10 +9,15 @@
   </view>
 </view>
 
-<input placeholder="输入标题（选）" class="add_title" value="" bindinput="setTitle" />
+<input placeholder="输入标题(可选)" class="add_title" value="" bindinput="setTitle" />
 
 <view class="addConent">
-  <textarea placeholder="记下这一刻的心情" maxlength="1000" value="" bindblur="setContent" />
+  <textarea 
+    placeholder="尽情匿名分享你的秘密吧" 
+    maxlength="3000" value="" 
+    bindblur="setContent" 
+    bindconfirm="setContent" 
+  />
 </view>
 
-<button bindtap="sendNewMood" data-content="{{content}}" loading="{{isLoading}}" data-title="{{title}}" hover-start-time="200" disabled="{{isdisabled}}">发布</button>
+<button bindtap="sendNewMood" data-content="{{content}}" loading="{{isLoading}}" data-title="{{title}}" hover-start-time="200" disabled="{{isdisabled}}">分享</button>
