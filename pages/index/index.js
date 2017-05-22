@@ -1,7 +1,7 @@
 //获取应用实例
 var app = getApp()
 var common = require('../../utils/common.js')
-var SData = require("sdata.js")
+var SData = require("../../utils/sdata.js")
 var hasMoreData = true;
 
 Page({

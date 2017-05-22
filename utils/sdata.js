@@ -4,8 +4,7 @@
  * 
  * limit 20 每次默认加载20条
  */
-
-var Bmob = require("../../utils/bmob.js")
+var Bmob = require("bmob.js")
 
 var app = getApp();
 
@@ -20,7 +19,6 @@ function reload(count, geopoint, callback) {
   //条件查询
   query.skip(count);
   query.limit(20);
-  query.equalTo("is_hide", "1");
   query.descending("title");
   query.include("publisher");
 

@@ -1,21 +1,20 @@
 //获取应用实例
 var app = getApp()
 var common = require('../../utils/common.js')
-var SData = require("sdata.js")
-var hasMoreData = true;
+var SData = require("../../utils/sdata.js")
 
 Page({
   data: {
     moodList: [],
+    hasMoreData:true,
   },
 
   onReady: function() {
-    hasMoreData = true
-    // loadData(this)
+    loadData(this)
   },
 
   onReachBottom: function () {
-    if(hasMoreData) {
+    if(this.data.hasMoreData) {
       loadData(this)
     } else {
       wx.showToast({
@@ -28,9 +27,8 @@ Page({
     wx.stopPullDownRefresh();
 
     // 下拉刷新，清除数据
-    hasMoreData = true;
     this.setData({
-      moodList: []
+      moodList: [],
     })
 
     loadData(this)
@@ -55,10 +53,16 @@ function loadData(thiss) {
     mask: true,
   })
 
+  that.setData({
+    hasMoreData: true,
+  })
+
   SData.reload(that.data.moodList.length, null, function(success, data){
     if (success) {
       if (data.length == 0) {
-        hasMoreData = false
+        that.setData({
+          hasMoreData: false,
+        })
       } else {
         that.setData({
           moodList: [].concat(that.data.moodList, data)

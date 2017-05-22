@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/local/local",
     "pages/listDetail/listDetail",
     "pages/mine/mine",
     "pages/advise/advise",
@@ -20,12 +21,20 @@
     "borderStyle":"white",
     "color":"#b2b2b2",
     "selectedColor":"#1e1e1e",
-    "list": [{
+    "list": [
+    {
       "pagePath": "pages/index/index",
       "selectedIconPath":"static/images/email1.png",
       "iconPath":"static/images/email.png",
+      "text": "最热"
+    }, 
+    {
+      "pagePath": "pages/local/local",
+      "selectedIconPath": "static/images/email1.png",
+      "iconPath": "static/images/email.png",
       "text": "附近"
-    }, {
+    },
+    {
       "pagePath": "pages/mine/mine",
       "selectedIconPath":"static/images/mine1.png", 
       "iconPath":"static/images/mine.png",
