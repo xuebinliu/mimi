@@ -1,22 +1,24 @@
 <import src="../template/list.wxml" />
+
 <loading hidden="{{loading}}">
   页面加载中...
 </loading>
+
 <view>
   <view class="content_detail">
     <view class="operation_box" wx:if="{{isMine}}">
       <view class="operation">
-        <view bindtap="deleteThis">
-        </view>
-        <view class="mail public_{{isPublic}}" bindtap="publicThis">
-        </view>
+        <view bindtap="deleteThis" />
       </view>
     </view>
+
     <template is="listTemp" data="{{listPic:listPic,listTitle:listTitle,listContent:listContent}}" />
+
     <view class="conent_user">
       <image mode="aspectFill" src="{{userPic}}"></image>
       <view>{{userNick}}</view>
     </view>
+
     <view class="detail_footer">
       <view class="content_header_right">{{publishTime}}</view>
       <view class="content_footer">
@@ -25,6 +27,7 @@
       </view>
     </view>
   </view>
+
   <view class="comment_list" wx-if="{{commentList.length>0}}">
     <view class="list" wx:for="{{commentList}}" wx:key="commentId" data-commentId="{{item.id}}" bindtap="toResponse" data-id="{{item.id}}" data-uid="{{item.uid}}" data-name="{{item.username}}">
       <view class="list_header" data-commentId="{{item.id}}" data-id="{{item.id}}" data-uid="{{item.uid}}" data-name="{{item.username}}">
@@ -53,7 +56,7 @@
 </view>
 <view class="toComment" wx:if="{{!isToResponse}}">
   <form bindsubmit="publishComment">
-    <input placeholder="回复心情：" name="commContent" bindinput="bindKeyInput" value="{{publishContent}}" focus="{{autoFo}}" bindfocus="changeFocus" />
+    <input placeholder="回复：" name="commContent" bindinput="bindKeyInput" value="{{publishContent}}" focus="{{autoFo}}" bindfocus="changeFocus" />
     <button class="default" formType="submit" disabled="{{isdisabled}}" loading="{{commentLoading}}">发送</button>
   </form>
 </view>

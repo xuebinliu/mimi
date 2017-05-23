@@ -24,14 +24,14 @@
     "list": [
     {
       "pagePath": "pages/index/index",
-      "selectedIconPath":"static/images/email1.png",
-      "iconPath":"static/images/email.png",
-      "text": "最热"
+      "selectedIconPath":"static/images/home.png",
+      "iconPath":"static/images/home_n.png",
+      "text": "大厅"
     }, 
     {
       "pagePath": "pages/local/local",
-      "selectedIconPath": "static/images/email1.png",
-      "iconPath": "static/images/email.png",
+      "selectedIconPath": "static/images/local.png",
+      "iconPath": "static/images/local_n.png",
       "text": "附近"
     },
     {

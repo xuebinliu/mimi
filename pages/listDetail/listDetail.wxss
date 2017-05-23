@@ -151,7 +151,6 @@ page {
   font-size: 16px;
   height: 72rpx;
   width: 120rpx;
-  border: 0px;
   background: none;
   line-height: 72rpx;
   border: 0 none;
@@ -256,14 +255,13 @@ page {
 }
 
 /*操作*/
-
 .operation_box {
   overflow: hidden;
 }
 
 .operation {
   display: flex;
-  width: 63px;
+  width: 32px;
   height: 24px;
   float: right;
 }
@@ -274,10 +272,6 @@ page {
   background: red;
   background: url(http://bmob-cdn-7744.b0.upaiyun.com/2016/12/20/92a0376d4087b0c980f5e4cdbc310556.png) no-repeat;
   background-size: 26px auto;
-}
-
-.operation .mail {
-  background-image: url(http://bmob-cdn-7744.b0.upaiyun.com/2016/11/29/62ba7e2740c3deb280f471f9ee05e96e.png);
 }
 
 .operation .write {
