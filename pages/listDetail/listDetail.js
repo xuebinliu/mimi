@@ -26,7 +26,8 @@ Page({
     commNum: 0,         // 评论的数量
     userPic: "",        // 发布者头像
     userNick: "",       // 发布者昵称
-    isMine: false,       // 是否自己发布的
+    isMine: false,      // 是否自己发布的
+    createdAt:"",     // 发布时间
   },
 
   onLoad: function (options) {
@@ -67,6 +68,7 @@ Page({
           listTitle: title,
           listContent: content,
           listPic: url,
+          createdAt: result[0].createdAt,
           agreeNum: agreeNum,
           commNum: commentNum,
           userPic: userPic,

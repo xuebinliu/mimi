@@ -6,18 +6,23 @@
 
 <view>
   <view class="content_detail">
-    <view class="operation_box" wx:if="{{isMine}}">
-      <view class="operation">
-        <view bindtap="deleteThis" />
+    <!--发布者信息-->
+    <view class="publisher_info_container">
+      <!--头像-->
+      <image mode="aspectFill" src="{{userPic}}"/>
+      <!--昵称和时间-->
+      <view class="publisher_name_time_c">
+        <label class="publisher_name">{{userNick}}</label>
+        <label class="publisher_time">{{createdAt}}</label>
+      </view>
+      <!--删除按钮-->
+      <view class="publisher_del_btn_layer"  wx:if="{{isMine}}">
+        <view bindtap="deleteThis"/>
       </view>
     </view>
 
+    <!--发布内容区-->
     <template is="listTemp" data="{{listPic:listPic,listTitle:listTitle,listContent:listContent}}" />
-
-    <view class="conent_user">
-      <image mode="aspectFill" src="{{userPic}}"></image>
-      <view>{{userNick}}</view>
-    </view>
 
     <view class="detail_footer">
       <view class="content_header_right">{{publishTime}}</view>
