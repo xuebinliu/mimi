@@ -18,8 +18,6 @@ Page({
      wx.hideToast() 
   },
   onShow: function() {
-    
-    
     var myInterval=setInterval(getReturn,500);
     function getReturn(){
         wx.getStorage({
@@ -47,34 +45,6 @@ Page({
                 } 
               })
               var newsLen=0;
-              // wx.request({
-              //   url: '',
-              //   header:{
-              //     "sessionKey":ress.data
-              //   },
-              //   data: {
-              //     "count": 1000
-              //   },
-              //   method:"GET",
-              //   success: function(res) {
-              //     if(res.data.error_code=="0"){
-              //       for(var i=0;i<res.data.result.length;i++){
-              //         if(res.data.result[i].is_read=="0"){
-              //           newsLen=newsLen+1;
-              //         }     
-              //       }
-              //       that.setData({
-              //         remindscount:newsLen
-                      
-              //       })
-              //       wx.setStorageSync('remindscount',newsLen) 
-              //     }
-              //     else{
-              //       common.dataLoading(res.data.error,"loading");
-              //     }
-                  
-              //   }
-              // })
             }
             
           } 

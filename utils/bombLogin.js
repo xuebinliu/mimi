@@ -1,5 +1,6 @@
 var Bmob = require("bmob.js");
 var app = getApp()
+var generater = require("generater.js")
 
 function bombLogin() {
 
@@ -16,35 +17,31 @@ function bombLogin() {
           if (res.code) {
             Bmob.User.requestOpenId(res.code, {
               success: function (userData) {
-                wx.getUserInfo({
-                  success: function (result) {
-                    var userInfo = result.userInfo
-                    var nickName = userInfo.nickName
-                    var avatarUrl = userInfo.avatarUrl
 
-                    // 默认密码为用户的openid
-                    Bmob.User.logIn(nickName, userData.openid, {
-                      success: saveUserInfo,
-                      error: function (user, error) {
-                        if (error.code == "101") {
-                          // 用户不存在，开始注册用户
-                          var user = new Bmob.User();
-                          user.set("username", nickName);
-                          user.set("password", userData.openid);
-                          user.set("nickname", nickName);
-                          user.set("userPic", avatarUrl);
-                          user.set("userData", userData);
-                          user.signUp(null, {
-                            success: saveUserInfo,
-                            error: function (userData, error) {
-                              console.log(error)
-                            }
-                          });
+                var nickName = generater.generateNickName()
+                var avatarUrl = generater.generateAvatar()
+
+                // 默认用户名和密码都为用户的openid
+                Bmob.User.logIn(userData.openid, userData.openid, {
+                  success: saveUserInfo,
+                  error: function (user, error) {
+                    if (error.code == "101") {
+                      // 用户不存在，开始注册用户
+                      var user = new Bmob.User();
+                      user.set("username", userData.openid);
+                      user.set("password", userData.openid);
+                      user.set("nickname", nickName);
+                      user.set("userPic", avatarUrl);
+                      user.set("userData", userData);
+                      user.signUp(null, {
+                        success: saveUserInfo,
+                        error: function (userData, error) {
+                          console.log(error)
                         }
-                      }
-                    });
+                      });
+                    }
                   }
-                })
+                });
               },
               error: function (error) {
                 // Show the error message somewhere

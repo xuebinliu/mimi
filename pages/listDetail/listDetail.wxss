@@ -4,6 +4,16 @@ page {
   padding-bottom: 80rpx;
 }
 
+.detail_content {
+  line-height: 19px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  color: #646464;
+  font-size: 16px;
+  margin-bottom: 16rpx;
+}
+
 .content_detail, .comment_list {
   overflow: hidden;
   background: #fafafa;

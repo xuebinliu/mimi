@@ -18,7 +18,7 @@
   亲，这里还没有秘密，赶快分享一个吧:)
 </text>
 
-<text class="noMoreData" wx:if="{{!hasMoreData}}">
+<text class="noMoreData" wx:if="{{!hasMoreData && moodList.length != 0}}">
   没有更多了
 </text>
 

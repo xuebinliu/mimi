@@ -22,7 +22,12 @@
     </view>
 
     <!--发布内容区-->
-    <template is="listTemp" data="{{listPic:listPic,listTitle:listTitle,listContent:listContent}}" />
+    <image mode="aspectFill" src="{{listPic}}" class="listPic" wx:if="{{listPic}}" bindtap="seeBig"></image>
+    
+    <view class="listTitle" wx-if="{{listTitle!=''}}">{{listTitle}}</view>
+
+    <view class="detail_content"><text>{{listContent}}</text></view>
+
 
     <view class="detail_footer">
       <view class="content_header_right">{{publishTime}}</view>
