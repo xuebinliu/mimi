@@ -20,7 +20,7 @@ function showModal(c,t,fun) {
 }
 
 function getUserId() {
-  if (getApp().globalData.user_id.length < 1) {
+  if (!getApp().globalData.user_id || getApp().globalData.user_id.length < 1) {
     var id = wx.getStorageSync("user_id");
     if (id) {
       getApp().globalData.user_id = id

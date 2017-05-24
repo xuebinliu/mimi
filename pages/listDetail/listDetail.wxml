@@ -23,12 +23,9 @@
 
     <!--发布内容区-->
     <image mode="aspectFill" src="{{listPic}}" class="listPic" wx:if="{{listPic}}" bindtap="seeBig"></image>
-    
     <view class="listTitle" wx-if="{{listTitle!=''}}">{{listTitle}}</view>
-
     <view class="detail_content"><text>{{listContent}}</text></view>
-
-
+    <!--内容操作，点赞和评论-->
     <view class="detail_footer">
       <view class="content_header_right">{{publishTime}}</view>
       <view class="content_footer">
@@ -38,6 +35,7 @@
     </view>
   </view>
 
+  <!--评论区-->
   <view class="comment_list" wx-if="{{commentList.length>0}}">
     <view class="list" wx:for="{{commentList}}" wx:key="commentId" data-commentId="{{item.id}}" bindtap="toResponse" data-id="{{item.id}}" data-uid="{{item.uid}}" data-name="{{item.username}}">
       <view class="list_header" data-commentId="{{item.id}}" data-id="{{item.id}}" data-uid="{{item.uid}}" data-name="{{item.username}}">

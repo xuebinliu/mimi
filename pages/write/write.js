@@ -2,7 +2,7 @@
 //获取应用实例
 var app = getApp()
 var Bmob=require("../../utils/bmob.js");
-var common = require('../template/getCode.js')
+var common = require('../../utils/common.js');
 var that;
 
 Page({

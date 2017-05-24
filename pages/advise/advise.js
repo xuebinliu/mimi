@@ -1,7 +1,7 @@
 
 //获取应用实例
 var app = getApp();
-var common = require('../template/getCode.js')
+var common = require('../../utils/common.js');
 var that;
 
 Page({

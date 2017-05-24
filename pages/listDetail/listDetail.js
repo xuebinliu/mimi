@@ -1,7 +1,7 @@
 
 //获取应用实例
 var app = getApp()
-var common = require('../template/getCode.js')
+var common = require('../../utils/common.js')
 var Bmob = require("../../utils/bmob.js")
 var commentlist;
 var that;
@@ -27,11 +27,12 @@ Page({
     userPic: "",        // 发布者头像
     userNick: "",       // 发布者昵称
     isMine: false,      // 是否自己发布的
-    createdAt:"",     // 发布时间
+    createdAt:"",       // 发布时间
   },
 
   onLoad: function (options) {
     that = this;
+    common.getUserId()
     optionId = options.moodId
   },
 
@@ -40,6 +41,10 @@ Page({
   },
 
   onShow: function () {
+    this.refresh()
+  },
+
+  refresh: function() {
     var Diary = Bmob.Object.extend("Diary");
     var query = new Bmob.Query(Diary);
     query.equalTo("objectId", optionId);
@@ -101,7 +106,6 @@ Page({
 
   commentQuery: function (mood) {
     // 查询评论
-    
     var Comments = Bmob.Object.extend("Comments");
     var queryComment = new Bmob.Query(Comments);
     queryComment.equalTo("mood", mood);
@@ -122,8 +126,7 @@ Page({
           if (pid) {
             pid = pid.id;
             olderUserName = result[i].get("olderUserName");
-          }
-          else {
+          } else {
             pid = 0;
             olderUserName = "";
           }
@@ -262,7 +265,7 @@ Page({
   //删除
   deleteThis: function () {
     wx.showModal({
-      title: '是否删除该秘密？',
+      title: '是否删除秘密？',
       content: '删除后将不能恢复',
       showCancel: true,
       confirmColor: "#a07c52",
@@ -299,79 +302,76 @@ Page({
   publishComment: function (e) {
     if (e.detail.value.commContent == "") {
       common.dataLoading("评论内容不能为空", "loading");
+      return
+    } 
+
+    that.setData({
+      isdisabled: true,
+      commentLoading: true
+    })
+
+    console.log('publishComment start user_id', app.globalData.user_id)
+
+    // 要评论的秘密对象
+    var Diary = Bmob.Object.extend("Diary");
+    var diary = new Diary();
+    diary.id = optionId;
+    // 自己的用户对象
+    var me = new Bmob.User();
+    me.id = app.globalData.user_id;
+    // 评论对象
+    var Comments = Bmob.Object.extend("Comments");
+    var comment = new Comments();
+    comment.set("publisher", me);
+    comment.set("mood", diary);
+    comment.set("content", e.detail.value.commContent);
+    if (that.data.isToResponse) {
+      // 要回复的用户信息
+      var olderName = that.data.resopneName;
+      var Comments1 = Bmob.Object.extend("Comments");
+      var comment1 = new Comments1();
+      comment1.id = that.data.pid;
+      comment.set("olderUserName", olderName);
+      comment.set("olderComment", comment1);
     }
-    else {
-      that.setData({
-        isdisabled: true,
-        commentLoading: true
-      })
 
-      var queryUser = new Bmob.Query(Bmob.User);
+    // 保存评论到服务器
+    comment.save(null, {
+      success: function (res) {
+        console.log('publishComment save success comment id', res.id)
+        var queryDiary = new Bmob.Query(Diary);
+        queryDiary.get(optionId, {
+          success: function (object) {
+            // 保存成功后，秘密的评论数加1
+            object.set('commentNum', object.get("commentNum") + 1);
+            object.save();
+            console.log('publishComment commentNum + 1')
+            // 从新拉取数据
+            that.refresh();
+          },
+        });
 
-      //查询单条数据，第一个参数是这条数据的objectId值
-      queryUser.get(app.globalData.user_id, {
-        success: function (userObject) {
-          // 查询成功，调用get方法获取对应属性的值
-          var Diary = Bmob.Object.extend("Diary");
-          var diary = new Diary();
-          diary.id = optionId;
+        that.setData({
+          publishContent: "",
+          isToResponse: false,
+          responeContent: "",
+          isdisabled: false,
+          commentLoading: false
+        })
+      },
+      error: function (gameScore, error) {
+        common.dataLoading(error, "loading");
+        console.log('publishComment save error', error)
 
-          var me = new Bmob.User();
-          me.id = app.globalData.user_id;
-
-          var Comments = Bmob.Object.extend("Comments");
-          var comment = new Comments();
-          comment.set("publisher", me);
-          comment.set("mood", diary);
-          comment.set("content", e.detail.value.commContent);
-          if (that.data.isToResponse) {
-            var olderName = that.data.resopneName;
-            var Comments1 = Bmob.Object.extend("Comments");
-            var comment1 = new Comments1();
-            comment1.id = that.data.pid;
-            comment.set("olderUserName", olderName);
-            comment.set("olderComment", comment1);
-          }
-
-          //添加数据，第一个入口参数是null
-          comment.save(null, {
-            success: function (res) {
-              var queryDiary = new Bmob.Query(Diary);
-              //查询单条数据，第一个参数是这条数据的objectId值
-              queryDiary.get(optionId, {
-                success: function (object) {
-                  object.set('commentNum', object.get("commentNum") + 1);
-                  object.save();
-                  that.onShow();
-                },
-                error: function (object, error) {
-                  // 查询失败
-                }
-              });
-
-              that.setData({
-                publishContent: "",
-                isToResponse: false,
-                responeContent: "",
-                isdisabled: false,
-                commentLoading: false
-              })
-            },
-
-            error: function (gameScore, error) {
-              common.dataLoading(error, "loading");
-              that.setData({
-                publishContent: "",
-                isToResponse: false,
-                responeContent: "",
-                isdisabled: false,
-                commentLoading: false
-              })
-            }
-          });
-        },
-      });
-    }
+        that.setData({
+          publishContent: "",
+          isToResponse: false,
+          responeContent: "",
+          isdisabled: false,
+          commentLoading: false
+        })
+      }
+    });
   },
 
   bindKeyInput: function (e) {
