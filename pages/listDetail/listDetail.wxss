@@ -244,6 +244,7 @@ page {
   flex:1;
   height: 80rpx;
   flex-direction: row;
+  margin-bottom: 15rpx;
 }
 
 .publisher_info_container image {

@@ -13,20 +13,18 @@ image {
 }
 
 .topBox {
-  left: 50%;
-  top: 50%;
-  margin-top: -250rpx;
-  margin-left: -100rpx;
-  position: absolute;
-  width: 200rpx;
-  height: 300rpx;
-  overflow: hidden;
+  display: flex;
+  flex:1;
+  flex-direction: column;
+  padding-top: 200rpx;
+  align-items: center;
 }
 
 text {
   text-align: center;
   display: block;
   margin-top: 5px;
+  font-size: 14px;
 }
 
 .bottomBox view {

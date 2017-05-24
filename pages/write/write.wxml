@@ -13,11 +13,19 @@
 
 <view class="addConent">
   <textarea 
-    placeholder="尽情匿名分享你的秘密吧" 
-    maxlength="3000" value="" 
+    placeholder="亲，尽情匿名分享你的小秘密吧" 
+    maxlength="3000" 
+    value="" 
     bindblur="setContent" 
-    bindconfirm="setContent" 
-  />
+    bindconfirm="setContent" />
 </view>
 
-<button bindtap="sendNewMood" data-content="{{content}}" loading="{{isLoading}}" data-title="{{title}}" hover-start-time="200" disabled="{{isdisabled}}">分享</button>
+<button 
+  bindtap="sendNewMood" 
+  data-content="{{content}}" 
+  loading="{{isLoading}}" 
+  data-title="{{title}}" 
+  hover-start-time="200" 
+  disabled="{{isdisabled}}">
+  分享
+</button>

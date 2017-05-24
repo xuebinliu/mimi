@@ -15,7 +15,7 @@
     <!--<navigator url="../newList/newList" class="unread">
       <view wx-if="{{remindscount>0}}"></view>消息
     </navigator>-->
-    <!--<navigator url="../advise/advise">反馈建议</navigator>-->
+    <navigator url="../advise/advise">反馈建议</navigator>
     <navigator url="../about/about">关于</navigator>
   </view>
   <view class="modify_nick_layer" wx:if="{{isModifyNick}}" bindtap="hiddenComment"></view>

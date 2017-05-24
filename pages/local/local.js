@@ -17,29 +17,23 @@ Page({
   onReachBottom: function () {
     if(this.data.hasMoreData) {
       loadData(this)
-    } else {
-      wx.showToast({
-        title: '没有更多了',
-      })
-    }
+    } 
   },
 
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh();
 
     // 下拉刷新，清除数据
-    this.setData({
-      moodList: [],
-    })
+    this.data.moodList = []
 
     loadData(this)
   },
 
   onShareAppMessage: function () {
     return {
-      title: '爆秘密',
-      desc: '倾诉烦恼，邮寄心情，分享快乐',
-      path: '/pages/index/index'
+      title: '匿名秘密',
+      desc: '亲，快来匿名分享你知道的小秘密吧~',
+      path: '/pages/local/local'
     }
   },
 })

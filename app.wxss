@@ -121,7 +121,7 @@ navigator {
   background-size: cover;
   position: fixed;
   right: 74rpx;
-  bottom: 100rpx;
+  bottom: 10rpx;
   border-bottom: 0;
   border-top: 0;
 }
