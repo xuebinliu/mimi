@@ -1,5 +1,4 @@
 var Bmob = require("bmob.js");
-var app = getApp()
 var generater = require("generater.js")
 
 function bombLogin() {
@@ -8,9 +7,8 @@ function bombLogin() {
   try {
     var value = wx.getStorageSync('user_openid')
     if (value) {
-      console.log("老用户启动")
-    }
-    else {
+      console.log("老用户启动 user_openid", user_openid)
+    } else {
       console.log("开始登录")
       wx.login({
         success: function (res) {
@@ -20,6 +18,8 @@ function bombLogin() {
 
                 var nickName = generater.generateNickName()
                 var avatarUrl = generater.generateAvatar()
+                console.log('generater nickName', nickName)
+                console.log('generater avatarUrl', avatarUrl)
 
                 // 默认用户名和密码都为用户的openid
                 Bmob.User.logIn(userData.openid, userData.openid, {
@@ -27,6 +27,7 @@ function bombLogin() {
                   error: function (user, error) {
                     if (error.code == "101") {
                       // 用户不存在，开始注册用户
+                      console.log('not exist user to sign up')
                       var user = new Bmob.User();
                       user.set("username", userData.openid);
                       user.set("password", userData.openid);
@@ -36,7 +37,7 @@ function bombLogin() {
                       user.signUp(null, {
                         success: saveUserInfo,
                         error: function (userData, error) {
-                          console.log(error)
+                          console.log('signUp error', error)
                         }
                       });
                     }
@@ -55,7 +56,7 @@ function bombLogin() {
       });
     }
   } catch (e) {
-    console.log(e)
+    console.log('bombLogin', e)
   }
 
   wx.checkSession({
@@ -75,6 +76,7 @@ function saveUserInfo(user) {
     wx.setStorageSync('my_nick', user.get("nickname"))
     wx.setStorageSync('my_username', user.get("username"))
     wx.setStorageSync('my_avatar', user.get("userPic"))
+    console.log('saveUserInfo user', user)
   } catch (e) {
     console.log(e)
   }

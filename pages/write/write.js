@@ -1,6 +1,5 @@
 
 //获取应用实例
-var app = getApp()
 var Bmob=require("../../utils/bmob.js");
 var common = require('../../utils/common.js');
 var that;
@@ -17,6 +16,7 @@ Page({
 
   onLoad: function(options) {
     that=this;
+    common.getUserId()
   },
 
   //选择图片
@@ -73,7 +73,7 @@ Page({
       var Diary = Bmob.Object.extend("Diary");
       var diary = new Diary();
       var me = new Bmob.User();
-      me.id = app.globalData.user_id;
+      me.id = getApp().globalData.user_id;
       diary.set("title", title);
       diary.set("content", content);
       diary.set("publisher", me);
