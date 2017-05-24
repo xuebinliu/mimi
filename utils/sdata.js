@@ -18,11 +18,13 @@ function reload(count, geopoint, callback) {
 
   //条件查询
   query.skip(count);
-  query.limit(20);
-  query.descending("title");
+  query.limit(15);
   query.include("publisher");
+
   if(geopoint) {
     query.near("location", new Bmob.GeoPoint({ latitude: geopoint.latitude, longitude: geopoint.longitude}))
+  } else {
+    query.descending("commentNum");
   }
 
   // 查询所有数据

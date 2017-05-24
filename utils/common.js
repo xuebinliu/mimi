@@ -3,7 +3,7 @@ function dataLoading(txt,icon,fun){
   wx.showToast({
     title: txt,
     icon: icon,
-    duration: 500,
+    duration: 1000,
     success:fun
   })
 }
