@@ -1,36 +1,32 @@
 
 //获取应用实例
-var app = getApp()
-var that;
 var common = require('../../utils/common.js');
 var Bmob=require("../../utils/bmob.js");
+var app = getApp()
+var that
 
 Page({
   onLoad: function(options) {
       that=this;   
       that.setData({
-        upImg:true,
-        loading:false,
+        uploadingImg:false,    // 是否正在上传头像
         isdisabled:false,
         modifyLoading:false
       }) 
   },
 
-  onReady:function(){
-     wx.hideToast() 
-  },
-
   onShow: function() {
+    // 获取头像
     wx.getStorage({
       key: 'my_avatar',
       success: function (res) {
         that.setData({
           userImg: res.data,
-          loading: true
         })
       }
     })
 
+    // 获取昵称
     wx.getStorage({
       key: 'my_nick',
       success: function (res) {
@@ -39,6 +35,18 @@ Page({
           inputValue: res.data
         })
       }
+    })
+  },
+
+  tapAdvise: function() {
+    wx.navigateTo({
+      url: '../advise/advise',
+    })
+  },
+
+  tapAbout: function() {
+    wx.navigateTo({
+      url: '../about/about',
     })
   },
 
@@ -63,24 +71,27 @@ Page({
               sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
               sourceType: sourceType, // 可以指定来源是相册还是相机，默认二者都有
               success: function (imageResult) {
+                // 开始上传
                 that.setData({
-                  upImg: false
+                  uploadingImg: true
                 })
                 var tempFilePaths = imageResult.tempFilePaths;
                 if (tempFilePaths.length > 0) {
                   var name = tempFilePaths;
                   var file = new Bmob.File(name, tempFilePaths);
-                  // 保存自定义头像文件到服务器
+                  // 保存到服务器
                   file.save().then(function (resu) {
+                    // 上传完成
                     wx.setStorageSync('my_avatar', resu.url());
                     that.setData({
-                      upImg: true
+                      uploadingImg: false
                     });
 
                     var newImge = resu.url();
                     wx.getStorage({
                       key: 'user_openid',
                       success: function (openid) {
+                        // 保存到用户属性
                         var openid = openid.data
                         var user = Bmob.User.logIn(openid, openid, {
                           success: function (users) {
@@ -91,19 +102,27 @@ Page({
                                   userImg: newImge
                                 })
                                 common.dataLoading("修改头像成功", "success");
-                              }
+                              },                
                             });
+                          },
+
+                          error: function (error) {
+                            console.log('error', error)
+                            common.dataLoading("修改头像失败", "loading");
                           }
                         });
-                      }, function(error) {
+                      }, 
+                      fail: function(error) {
+                        // 查找openid失败
+                        common.dataLoading("修改头像失败", "loading");
                         console.log(error);
                       }
                     })
                   }, function (error) {
                     that.setData({
-                      upImg: true
+                      uploadingImg: false
                     })
-                    common.dataLoading(error, "loading");
+                    common.dataLoading("修改头像失败", "loading");
                     console.log(error);
                   })
                 }
