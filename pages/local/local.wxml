@@ -4,7 +4,7 @@
 <view class="index_list">
   <navigator url="../listDetail/listDetail?moodId={{item.id}}" hover-class="navigator-hover" wx:for-items="{{moodList}}" wx:key="moodListId" wx:if="{{item.id}}">
     <template is="listHeader" data="{{userPic:item.avatar,userNick:item.username,publishTime:item.created_at}}" />
-    <template is="listTemp" data="{{listPic:item.attachment,listTitle:item.title,listContent:item.content}}" />
+    <template is="listTemp" data="{{locationDetail:item.locationDetail, listPic:item.attachment,listTitle:item.title,listContent:item.content}}" />
     <view class="list_footer">
       <view class="agreeNum agree_{{item.is_liked}}">{{item.likes}}</view>
       <view class="commNum">{{item.comments}}</view>
@@ -14,8 +14,12 @@
 
 <view class="bord"/>
 
-<text class="noData" wx:if="{{moodList.length<=0}}">
-  亲，这里还没有秘密，赶快分享一个吧:)
+<text class="noData" wx:if="{{hasLocation && moodList.length<=0}}">
+  亲，附件还没有秘密，赶快分享一个吧:)
+</text>
+
+<text class="noData" wx:if="{{!hasLocation}}">
+  没有位置权限，无法获取附近秘密
 </text>
 
 <text class="noMoreData" wx:if="{{!hasMoreData && moodList.length != 0}}">

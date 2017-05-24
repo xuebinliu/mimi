@@ -3,6 +3,7 @@
 var Bmob=require("../../utils/bmob.js");
 var common = require('../../utils/common.js');
 var that;
+var location;
 
 Page({
   data: {
@@ -17,6 +18,15 @@ Page({
   onLoad: function(options) {
     that=this;
     common.getUserId()
+  },
+
+  onShow: function() {
+    wx.getLocation({
+      success: function(res) {
+        location = res
+        console.log('getLocation location', location)
+      },
+    })
   },
 
   //选择图片
@@ -72,11 +82,27 @@ Page({
       
       var Diary = Bmob.Object.extend("Diary");
       var diary = new Diary();
+
       var me = new Bmob.User();
       me.id = getApp().globalData.user_id;
+      diary.set("publisher", me);
+
+      // location
+      if(location) {
+        var geoPoint = new Bmob.GeoPoint({
+          latitude: location.latitude,
+          longitude: location.longitude,
+        })
+        diary.set("location", geoPoint)
+      } else {
+        // 没有位置信息
+        // common.showModal("没有位置信息是否发送？",null, function(){
+
+        // })
+      }
+
       diary.set("title", title);
       diary.set("content", content);
-      diary.set("publisher", me);
       diary.set("likeNum", 0);
       diary.set("commentNum", 0);
       diary.set("liker", []);

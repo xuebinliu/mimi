@@ -21,6 +21,9 @@ function reload(count, geopoint, callback) {
   query.limit(20);
   query.descending("title");
   query.include("publisher");
+  if(geopoint) {
+    query.near("location", new Bmob.GeoPoint({ latitude: geopoint.latitude, longitude: geopoint.longitude}))
+  }
 
   // 查询所有数据
   query.find({
@@ -59,34 +62,21 @@ function reload(count, geopoint, callback) {
           }
         }
 
-        var entity;
-        if (pic) {
-          entity = {
-            "title": title || '',
-            "content": content || '',
-            "id": id || '',
-            "avatar": userPic || '',
-            "created_at": createdAt || '',
-            "attachment": _url || '',
-            "likes": likeNum,
-            "comments": commentNum,
-            "is_liked": isLike || '',
-            "username": name || ''
-          }
-        }
-        else {
-          entity = {
-            "title": title || '',
-            "content": content || '',
-            "id": id || '',
-            "avatar": userPic || '',
-            "created_at": createdAt || '',
-            "attachment": _url || '',
-            "likes": likeNum,
-            "comments": commentNum,
-            "is_liked": isLike || '',
-            "username": name || ''
-          }
+        // 位置信息
+        var location = results[i].get("location")
+
+        var entity = {
+          "title": title || '',
+          "content": content || '',
+          "id": id || '',
+          "avatar": userPic || '',
+          "created_at": createdAt || '',
+          "attachment": _url || '',
+          "likes": likeNum,
+          "comments": commentNum,
+          "is_liked": isLike || '',
+          "username": name || '',
+          "location": location
         }
 
         entityList.push(entity)

@@ -157,3 +157,9 @@ navigator {
   margin-left: 20rpx;
   margin-right: 20rpx;
 }
+
+.location {
+  margin-bottom: 10rpx;
+  font-size: 10;
+
+}

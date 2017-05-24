@@ -1,6 +1,8 @@
 
 // 公用模版
 <template name="listTemp">
+    <view wx:if="{{locationDetail}}" class="location">距离: {{locationDetail}}km</view>
+
     <image mode="aspectFill" src="{{listPic}}" class="listPic" wx:if="{{listPic}}" bindtap="seeBig"></image>
     
     <view class="listTitle" wx-if="{{listTitle!=''}}">{{listTitle}}</view>
