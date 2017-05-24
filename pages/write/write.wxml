@@ -2,6 +2,10 @@
   <view>添加图片(可选)</view>
 </view>
 
+<loading hidden="{{hidePublishing}}">
+  发布中...
+</loading>
+
 <view wx:if="{{isSrc}}" class="image_box">
   <view class="picPre">
     <image src="{{src}}" mode="aspectFill"></image>
@@ -13,7 +17,7 @@
 
 <view class="addConent">
   <textarea 
-    placeholder="亲，请尽情匿名分享你的小秘密吧" 
+    placeholder="亲，请尽情分享你的小秘密吧，完全匿名的哦~" 
     maxlength="3000" 
     value="" 
     bindblur="setContent" 

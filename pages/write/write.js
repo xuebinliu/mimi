@@ -12,7 +12,8 @@ Page({
     title: "",
     content: "",
     autoFocus: true,
-    isdisabled: false
+    isdisabled: false,
+    hidePublishing: true
   },
 
   onLoad: function(options) {
@@ -20,9 +21,9 @@ Page({
     common.getUserId()
   },
 
-  onShow: function() {
+  onReady: function() {
     wx.getLocation({
-      success: function(res) {
+      success: function (res) {
         location = res
         console.log('getLocation location', location)
       },
@@ -77,7 +78,8 @@ Page({
     }
     else{
       that.setData({
-        isdisabled:true
+        isdisabled:true,
+        hidePublishing:false
       }) 
       
       var Diary = Bmob.Object.extend("Diary");
@@ -119,7 +121,8 @@ Page({
       diary.save(null, {
         success: function (result) {
           that.setData({
-            isdisabled: false
+            isdisabled: false,
+            hidePublishing: true
           })
           // 添加成功，返回成功之后的objectId
           //（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
@@ -134,7 +137,8 @@ Page({
           console.log(error)
           common.dataLoading("发布秘密失败", "loading");
           that.setData({
-            isdisabled: false
+            isdisabled: false,
+            hidePublishing: true
           })
         }
       });
