@@ -11,13 +11,13 @@
   </view>
 
   <view class="operations">
-    <view class="oItemLayer" hover-class="operationsItemHover" bindtap="modifyImg">
+    <view class="oItemLayer" bindtap="modifyImg">
       <image mode="aspectFit" src="../../static/images/modify_head.png"/>
       <view class="operationsItem">修改头像</view>
     </view>
     <view class="operationsLine"></view>
 
-    <view class="oItemLayer" hover-class="operationsItemHover" bindtap="modifyNick">
+    <view class="oItemLayer" bindtap="modifyNick">
       <image mode="aspectFit" src="../../static/images/modify_name.png"/>
       <view class="operationsItem">修改昵称</view>
     </view>
@@ -38,13 +38,9 @@
   <view class="modify_nick_layer" wx:if="{{isModifyNick}}" bindtap="hiddenComment"></view>
 
   <view class="modify_nick" wx:if="{{isModifyNick}}">
-    <form bindsubmit="modyfiNick" bindreset="formReset">
+    <form bindsubmit="modiyfiNick" bindreset="formReset">
       <input placeholder="请输入昵称" value="{{userName}}" bindinput="bindKeyInput" name="changeNick" />
-      <button 
-        class="modify_nick_yes" 
-        formType="submit" 
-        disabled="{{isdisabled}}" 
-        loading="{{modifyLoading}}">保存
+      <button class="modify_nick_yes" formType="submit" disabled="{{isdisabled}}" loading="{{modifyLoading}}">保存
       </button>
     </form>
   </view>
