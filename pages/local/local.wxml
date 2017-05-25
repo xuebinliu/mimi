@@ -14,8 +14,9 @@
 
 <view class="bord"/>
 
+<!--有位置权限，但是数据列表为空，则显示“没有数据”-->
 <text class="noData" wx:if="{{hasLocation && moodList.length<=0}}">
-  亲，附件还没有秘密，赶快分享一个吧:)
+  亲，附近还没有秘密，赶快分享一个吧:)
 </text>
 
 <text class="noData" wx:if="{{!hasLocation}}">

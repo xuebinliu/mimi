@@ -79,7 +79,7 @@ function loadData() {
           hasMoreData: false,
         })
       } else {
-
+        // 计算距离
         for(var i = 0; i<data.length; i++) {
           var item = data[i]
           if(item.location) {
