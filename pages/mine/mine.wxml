@@ -4,14 +4,13 @@
 </loading>
 
 <view class="mine_box">
-
   <view class="user_show">
     <image mode="aspectFill" src="{{userImg}}"></image>
     <text>{{inputValue}}</text>
   </view>
 
   <view class="operations">
-    <view class="oItemLayer" bindtap="modifyImg">
+    <view class="oItemLayer" bindtap="tapModifyAvatar">
       <image mode="aspectFit" src="../../static/images/modify_head.png"/>
       <view class="operationsItem">修改头像</view>
     </view>
@@ -38,7 +37,7 @@
   <view class="modify_nick_layer" wx:if="{{isModifyNick}}" bindtap="hiddenComment"></view>
 
   <view class="modify_nick" wx:if="{{isModifyNick}}">
-    <form bindsubmit="modiyfiNick" bindreset="formReset">
+    <form bindsubmit="modifyNickName" bindreset="formReset">
       <input placeholder="请输入昵称" value="{{userName}}" bindinput="bindKeyInput" name="changeNick" />
       <button class="modify_nick_yes" formType="submit" disabled="{{isdisabled}}" loading="{{modifyLoading}}">保存
       </button>

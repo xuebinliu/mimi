@@ -39,20 +39,22 @@ Page({
     })
   },
 
+  // 点击建议
   tapAdvise: function() {
     wx.navigateTo({
       url: '../advise/advise',
     })
   },
 
+  // 点击关于
   tapAbout: function() {
     wx.navigateTo({
       url: '../about/about',
     })
   },
 
-  //修改头像
-  modifyImg:function(){
+  // 点击修改头像
+  tapModifyAvatar: function(){
     var key = app.globalData.user_id
     if (key) {
       wx.showActionSheet({
@@ -76,7 +78,7 @@ Page({
               sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
               sourceType: sourceType, // 可以指定来源是相册还是相机，默认二者都有
               success: function (imageResult) {
-                that.saveAvatar(imageResult)
+                that.saveAvatarFile(imageResult)
               }
             })
           }
@@ -99,17 +101,19 @@ Page({
     })
   },
 
-  modifyNick:function(){
+  modifyNick: function(){
     that.setData({
       isModifyNick:true,
     })
   },
 
-  saveAvatar: function (imageResult) {
+  // 保存头像
+  saveAvatarFile: function (imageResult) {
     // 开始上传
     that.setData({
       uploadingImg: true
     })
+
     var tempFilePaths = imageResult.tempFilePaths;
     if (tempFilePaths.length > 0) {
       var name = tempFilePaths;
@@ -166,7 +170,7 @@ Page({
   },
 
   //修改昵称
-  modyfiNick: function (e) {
+  modifyNickName: function (e) {
     that.setData({
       isdisabled:true,
       modifyLoading:true
