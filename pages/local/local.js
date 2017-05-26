@@ -4,6 +4,7 @@ var common = require('../../utils/common.js')
 var SData = require("../../utils/sdata.js")
 var location
 var that
+var isloading = false
 
 Page({
   data: {
@@ -14,8 +15,9 @@ Page({
 
   onReady: function() {
     that = this
-
+    this.data.moodList = []
     common.getUserId()
+    isloading = false
 
     wx.getLocation({
       success: function(res) {
@@ -62,6 +64,13 @@ function loadData() {
     return
   }
 
+  if (isloading) {
+    console.log('loadData aready is loading return')
+    return
+  } else {
+    isloading = true
+  }
+
   wx.showLoading({
     title: '加载中...',
     mask: true,
@@ -73,6 +82,9 @@ function loadData() {
 
   console.log('loadData start')
   SData.reload(that.data.moodList.length, location, function(success, data){
+    isloading = false
+    wx.hideLoading()
+    
     if (success) {
       if (data.length == 0) {
         that.setData({
@@ -88,13 +100,20 @@ function loadData() {
           }
         }
 
+        if (data.length < 15) {
+          // 默认一次拉取15条数据，少于15条说明没有数据了
+          that.setData({
+            hasMoreData: false,
+          })
+        }
+
         that.setData({
           moodList: [].concat(that.data.moodList, data)
         })
         console.log('loaddata finish, all length', that.data.moodList.length)
       }
+    } else {
+      common.dataLoading("拉取数据错误，请下拉刷新重试", "failed", null)
     }
-
-    wx.hideLoading()
   });
 }

@@ -9,7 +9,7 @@ var Bmob = require("bmob.js")
 var app = getApp();
 
 function reload(count, geopoint, callback) {
-  console.log('reload', count, geopoint)
+  console.log('reload skip count,geopoint', count, geopoint)
 
   var entityList = new Array();
 
@@ -88,7 +88,7 @@ function reload(count, geopoint, callback) {
     },
     error: function (error) {
       callback(false, null)
-      console.log(error)
+      console.log('reload data net error', error)
     }
   });
 }
