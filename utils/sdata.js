@@ -78,7 +78,8 @@ function reload(count, geopoint, callback) {
           "comments": commentNum,
           "is_liked": isLike || '',
           "username": name || '',
-          "location": location
+          "location": location,
+          "isInCheck": getApp().globalData.isInCheck,
         }
 
         entityList.push(entity)

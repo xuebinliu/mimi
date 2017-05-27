@@ -29,7 +29,9 @@ Page({
     wx.stopPullDownRefresh();
 
     // 下拉刷新，清除数据
-    this.data.moodList = []
+    this.setData({
+      moodList: []
+    })
 
     console.log('onPullDownRefresh loadData')
 

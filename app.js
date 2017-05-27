@@ -2,12 +2,18 @@
 var Bmob=require("utils/bmob.js");
 var common=require("utils/common.js");
 var Login = require("utils/bombLogin.js");
+var Check = require("utils/check.js");
 
 Bmob.initialize("da4e139e60115c05e8e8e6e18fc075ec", "5cbcb1749209a7d2d8b7068bd6aa31f1");
 
 App({
   onLaunch: function () {
-    Login.bombLogin()
+    Login.bombLogin();
+    
+    Check.isInCheck(function (isInCheck){
+      console.log("onLaunch isInCheck status", isInCheck);
+      getApp().globalData.isInCheck = isInCheck;
+    });
   },
 
   onShow:function(){
@@ -15,7 +21,8 @@ App({
   },
   
   globalData:{
-    user_id:""
+    user_id:"",
+    isInCheck:true,
   },
 
   onPullDownRefresh:function(){

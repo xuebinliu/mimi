@@ -26,7 +26,7 @@
       "pagePath": "pages/index/index",
       "selectedIconPath":"static/images/home.png",
       "iconPath":"static/images/home_n.png",
-      "text": "大厅"
+      "text": "秘密"
     }, 
     {
       "pagePath": "pages/local/local",

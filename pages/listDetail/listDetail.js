@@ -18,6 +18,8 @@ Page({
     recommentLoading: false,
     commentList: [],
     agree: 0,             // 自己是否赞
+    
+    isInCheck:true,
 
     listTitle: "",      // 秘密的标题
     listContent: "",    // 秘密的内容
@@ -28,6 +30,7 @@ Page({
     userNick: "",       // 发布者昵称
     isMine: false,      // 是否自己发布的
     createdAt:"",       // 发布时间
+
   },
 
   onLoad: function (options) {
@@ -41,7 +44,11 @@ Page({
   },
 
   onShow: function () {
-    this.refresh()
+    this.setData({
+      isInCheck: getApp().globalData.isInCheck,
+    });
+
+    this.refresh();
   },
 
   refresh: function() {
