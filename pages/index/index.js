@@ -1,9 +1,9 @@
 //获取应用实例
-var app = getApp();
-var common = require('../../utils/common.js')
-var SData = require("../../utils/sdata.js")
-
-var isloading = false;
+var common = require('../../utils/common.js');
+var SData = require("../../utils/sdata.js");
+var location = null;
+var that;
+var isloading;
 
 Page({
   data: {
@@ -12,16 +12,32 @@ Page({
   },
 
   onReady: function () {
+    that = this;
     this.data.moodList = [];
     common.getUserId();
     isloading = false;
-    loadData(this)
+
+    if(!getApp().globalData.isInCheck) {
+      // 非审核态，获取地理位置
+      wx.getLocation({
+        success: function(res) {
+          location = res;
+          console.log('getLocation', location);
+        },
+        complete: function() {
+          loadData();
+        }
+      });
+    } else {
+      // 审核态，不取位置，直接拉数据
+      loadData();
+    }
   },
 
   onReachBottom: function () {
     if (this.data.hasMoreData) {
-      console.log('onReachBottom hasMoreData loadData')
-      loadData(this)
+      console.log('onReachBottom hasMoreData loadData');
+      loadData()
     }
   },
 
@@ -31,47 +47,45 @@ Page({
     // 下拉刷新，清除数据
     this.setData({
       moodList: []
-    })
+    });
 
-    console.log('onPullDownRefresh loadData')
+    console.log('onPullDownRefresh loadData');
 
-    loadData(this)
+    loadData()
   },
 
   onShareAppMessage: function () {
     return {
       title: '匿名秘密',
-      desc: '亲，快来匿名分享你知道的小秘密吧~',
+      desc: '一个小秘密~',
       path: '/pages/index/index'
     }
   },
 });
 
 // 加载数据
-function loadData(thiss) {
+function loadData() {
   if (isloading) {
-    console.log('loadData aready is loading return')
-    return
+    console.log('loadData aready is loading return');
+    return;
   } else {
     isloading = true
   }
 
-  const that = thiss;
-
   wx.showLoading({
     title: '加载中...',
     mask: true,
-  })
+  });
 
   that.setData({
     hasMoreData: true,
-  })
+  });
 
-  SData.reload(that.data.moodList.length, null, function (success, data) {
+  SData.reload(that.data.moodList.length, location, function (success, data) {
+    wx.hideLoading();
 
-    isloading = false
+    isloading = false;
 
-    wx.hideLoading()
     if (success) {
       if (data.length == 0) {
         that.setData({
@@ -85,9 +99,18 @@ function loadData(thiss) {
           })
         }
 
+        // 计算距离
+        for(var i = 0; i<data.length; i++) {
+          var item = data[i]
+          if(item.location) {
+            item.locationDetail = common.getDistance(item.location.latitude, item.location.longitude,
+              location.latitude, location.longitude)
+          }
+        }
+
         that.setData({
           moodList: [].concat(that.data.moodList, data)
-        })
+        });
 
         console.log('loadData finished, all length', that.data.moodList.length)
       }

@@ -10,7 +10,7 @@
         data="{{userPic:item.avatar,userNick:item.username,publishTime:item.created_at}}" />
 
       <template is="listTemp" 
-        data="{{listPic:item.attachment,listTitle:item.title,listContent:item.content}}" />
+        data="{{locationDetail:item.locationDetail, listPic:item.attachment,listTitle:item.title,listContent:item.content}}" />
 
       <view class="list_footer" wx:if="{{!item.isInCheck}}">
         <view class="agreeNum agree_{{item.is_liked}}">{{item.likes}}</view>

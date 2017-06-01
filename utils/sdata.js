@@ -4,12 +4,12 @@
  * 
  * limit 20 每次默认加载20条
  */
-var Bmob = require("bmob.js")
+var Bmob = require("bmob.js");
 
 var app = getApp();
 
 function reload(count, geopoint, callback) {
-  console.log('reload skip count,geopoint', count, geopoint)
+  console.log('reload skip count,geopoint', count, geopoint);
 
   var entityList = new Array();
 
@@ -22,7 +22,7 @@ function reload(count, geopoint, callback) {
   query.include("publisher");
 
   if(geopoint) {
-    query.near("location", new Bmob.GeoPoint({ latitude: geopoint.latitude, longitude: geopoint.longitude}))
+    query.near("location", new Bmob.GeoPoint({latitude: geopoint.latitude, longitude: geopoint.longitude}))
   } else {
     query.descending("commentNum");
   }
@@ -30,7 +30,7 @@ function reload(count, geopoint, callback) {
   // 查询所有数据
   query.find({
     success: function (results) {
-      console.log('reload success results length', results.length)
+      console.log('reload success results length', results.length);
 
       for (var i = 0; i < results.length; i++) {
         // 发布者的user id、标题、内容
@@ -65,7 +65,7 @@ function reload(count, geopoint, callback) {
         }
 
         // 位置信息
-        var location = results[i].get("location")
+        var location = results[i].get("location");
 
         var entity = {
           "title": title || '',
@@ -80,7 +80,7 @@ function reload(count, geopoint, callback) {
           "username": name || '',
           "location": location,
           "isInCheck": getApp().globalData.isInCheck,
-        }
+        };
 
         entityList.push(entity)
       }
@@ -88,12 +88,12 @@ function reload(count, geopoint, callback) {
       callback(true, entityList)
     },
     error: function (error) {
-      callback(false, null)
-      console.log('reload data net error', error)
+      callback(false, null);
+      console.log('reload data net error', error);
     }
   });
 }
 
 module.exports = {
   reload: reload,
-}
+};

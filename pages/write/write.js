@@ -1,9 +1,13 @@
+/**
+ * 写秘密
+ *
+ * @type {Bmob}
+ */
 
-//获取应用实例
-var Bmob=require("../../utils/bmob.js");
+var Bmob = require("../../utils/bmob.js");
 var common = require('../../utils/common.js');
-var that;
-var location;
+var that = null;
+var location = null;
 
 Page({
   data: {
@@ -16,18 +20,20 @@ Page({
     hidePublishing: true
   },
 
-  onLoad: function(options) {
-    that=this;
+  onLoad: function() {
+    that = this;
     common.getUserId()
   },
 
   onReady: function() {
-    wx.getLocation({
-      success: function (res) {
-        location = res
-        console.log('getLocation location', location)
-      },
-    })
+    if(!getApp().globalData.isInCheck) {
+      wx.getLocation({
+        success: function (res) {
+          location = res;
+          console.log('getLocation location', location);
+        },
+      });
+    }
   },
 
   //选择图片
@@ -37,7 +43,7 @@ Page({
       sizeType: ['original', 'compressed'], 
       sourceType: ['album', 'camera'], 
       success: function (res) { 
-        var tempFilePaths = res.tempFilePaths
+        var tempFilePaths = res.tempFilePaths;
         that.setData({
           isSrc:true,
           src:tempFilePaths
@@ -80,7 +86,7 @@ Page({
       that.setData({
         isdisabled:true,
         hidePublishing:false
-      }) 
+      });
       
       var Diary = Bmob.Object.extend("Diary");
       var diary = new Diary();
@@ -94,13 +100,8 @@ Page({
         var geoPoint = new Bmob.GeoPoint({
           latitude: location.latitude,
           longitude: location.longitude,
-        })
-        diary.set("location", geoPoint)
-      } else {
-        // 没有位置信息
-        // common.showModal("没有位置信息是否发送？",null, function(){
-
-        // })
+        });
+        diary.set("location", geoPoint);
       }
 
       diary.set("title", title);
@@ -116,17 +117,16 @@ Page({
         diary.set("pic", file);
       }
 
-      console.log('sendNewMood user_id', me.id)
+      console.log('sendNewMood user_id', me.id);
 
       diary.save(null, {
         success: function (result) {
           that.setData({
             isdisabled: false,
             hidePublishing: true
-          })
-          // 添加成功，返回成功之后的objectId
-          //（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
-          common.dataLoading("发布秘密成功", "success", function () {
+          });
+
+          common.dataLoading("发布成功", "success", function () {
             wx.navigateBack({
               delta: 1
             })
@@ -135,7 +135,7 @@ Page({
         error: function (result, error) {
           // 添加失败
           console.log(error)
-          common.dataLoading("发布秘密失败", "loading");
+          common.dataLoading("发布失败", "loading");
           that.setData({
             isdisabled: false,
             hidePublishing: true
@@ -148,4 +148,4 @@ Page({
   onPullDownRefresh:function(){
     wx.stopPullDownRefresh()
   }
-})
+});
