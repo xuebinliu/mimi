@@ -1,13 +1,10 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/local/local",
-    "pages/listDetail/listDetail",
+    "pages/detail/detail",
+    "pages/write/write",
     "pages/mine/mine",
     "pages/advise/advise",
-    "pages/write/write",
-    "pages/newList/newList",
-    "pages/protocol/protocol",
     "pages/about/about"
   ],
   "window":{
@@ -16,36 +13,10 @@
     "navigationBarTextStyle":"black",
     "enablePullDownRefresh":true
   },
-  "tabBar": {
-    "backgroundColor":"#FAFAFA",
-    "borderStyle":"white",
-    "color":"#b2b2b2",
-    "selectedColor":"#1e1e1e",
-    "list": [
-    {
-      "pagePath": "pages/index/index",
-      "selectedIconPath":"static/images/home.png",
-      "iconPath":"static/images/home_n.png",
-      "text": "秘密"
-    }, 
-    {
-      "pagePath": "pages/local/local",
-      "selectedIconPath": "static/images/local.png",
-      "iconPath": "static/images/local_n.png",
-      "text": "附近"
-    },
-    {
-      "pagePath": "pages/mine/mine",
-      "selectedIconPath":"static/images/mine1.png", 
-      "iconPath":"static/images/mine.png",
-      "text": "我"
-    }]
-  },
   "networkTimeout": {
     "request": 20000,
     "connectSocket": 20000,
     "uploadFile": 20000,
     "downloadFile": 20000
-  },
-  "debug":true
+  }
 }

@@ -3,7 +3,7 @@
 
 <view class="index_list">
   <navigator 
-    url="../listDetail/listDetail?moodId={{item.id}}" 
+    url="../detail/detail?moodId={{item.id}}"
     hover-class="navigator-hover" wx:for-items="{{moodList}}" 
     wx:key="moodListId" wx:if="{{item.id}}">
       <template is="listHeader" 
@@ -22,11 +22,13 @@
 <view class="bord"/>
 
 <text class="noData" wx:if="{{moodList.length<=0}}">
-  亲，这里还没有秘密，赶快分享一个吧:)
+  没有秘密
 </text>
 
 <text class="noMoreData" wx:if="{{!hasMoreData && moodList.length != 0}}">
   没有更多了
 </text>
+
+<navigator class="toMine" url="../mine/mine"/>
 
 <navigator class="toWrite" url="../write/write"/>

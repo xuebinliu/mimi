@@ -1,11 +1,5 @@
 <view class="topBox">
   <image src="../../static/images/logo_144.png" mode="aspectFill"></image>
   <text>v1.0.1</text>
-  <text>匿名分享</text>
-</view>
-<view class="bottomBox">
-  <view class="softHtp">
-    <navigator url="../protocol/protocol">许可协议</navigator>
-  </view>
-  <!--<view>腾云工作室版权所有</view>-->
+  <text>匿名秘密</text>
 </view>

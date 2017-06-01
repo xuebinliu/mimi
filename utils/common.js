@@ -9,8 +9,10 @@ function dataLoading(txt,icon,fun){
 }
 
 function showModal(c,t,fun) {
-    if(!t)
-        t='提示'
+    if(!t) {
+      t='提示';
+    }
+
     wx.showModal({
         title: t,
         content: c,

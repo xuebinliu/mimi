@@ -100,17 +100,17 @@ navigator {
   background: #000;
 }
 
-.returnTop{
-  width:100rpx;
-  height: 100rpx;
-  background: url(http://bmob-cdn-7744.b0.upaiyun.com/2017/01/14/6bc44b6b40bde3ca803dca4dd101cba0.png) no-repeat;
-  padding: 0;
-  background-size: cover;
-  position: fixed;
-  right: 74rpx;
-  bottom: 100rpx;
-  border-bottom: 0;
-  border-top: 0;
+.toMine {
+    width: 100rpx;
+    height: 100rpx;
+    background: url(http://bmob-cdn-11684.b0.upaiyun.com/2017/05/24/0e2ced8840e92201808267abebb3b785.png) no-repeat;
+    padding: 0;
+    background-size: cover;
+    position: fixed;
+    right: 75rpx;
+    bottom: 120rpx;
+    border-bottom: 0;
+    border-top: 0;
 }
 
 .toWrite {
@@ -120,7 +120,7 @@ navigator {
   padding: 0;
   background-size: cover;
   position: fixed;
-  right: 74rpx;
+  right: 75rpx;
   bottom: 10rpx;
   border-bottom: 0;
   border-top: 0;

@@ -1,5 +1,5 @@
 var Bmob = require("bmob.js");
-var generater = require("generater.js")
+var generator = require("generator.js");
 
 function bombLogin() {
   //调用API从本地缓存中获取数据
@@ -21,21 +21,22 @@ function bombLogin() {
     },
     fail: function () {
       //登录态过期
-      console.log('checkSession fail')
+      console.log('checkSession fail');
       mimiLogin()
     }
   }) 
 }
 
 function mimiLogin() {
-  console.log("mimiLogin start")
+  console.log("mimiLogin start");
   wx.login({
     success: function (res) {
       if (res.code) {
-        console.log("wx.login res", res)
+        console.log("wx.login res", res);
         Bmob.User.requestOpenId(res.code, {
           success: function (userData) {
-            console.log("wx requestOpenId success userData", userData)
+            console.log("wx requestOpenId success userData", userData);
+
             // 默认用户名和密码都为用户的openid
             Bmob.User.logIn(userData.openid, userData.openid, {
               success: saveUserInfo,
@@ -45,10 +46,10 @@ function mimiLogin() {
                   var user = new Bmob.User();
                   user.set("username", userData.openid);
                   user.set("password", userData.openid);
-                  user.set("nickname", generater.generateNickName());
-                  user.set("userPic", generater.generateAvatar());
+                  user.set("nickname", generator.generateNickName());
+                  user.set("userPic", generator.generateAvatar());
                   user.set("userData", userData);
-                  console.log('sign up start, new user', user)
+                  console.log('sign up start, new user', user);
                   user.signUp(null, {
                     success: saveUserInfo,
                     error: function (userData, error) {

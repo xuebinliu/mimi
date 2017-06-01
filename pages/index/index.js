@@ -1,20 +1,20 @@
 //获取应用实例
-var app = getApp()
+var app = getApp();
 var common = require('../../utils/common.js')
 var SData = require("../../utils/sdata.js")
 
-var isloading = false
+var isloading = false;
 
 Page({
   data: {
     moodList: [],
-    hasMoreData: true,
+    hasMoreData: true
   },
 
   onReady: function () {
-    this.data.moodList = []
-    common.getUserId()
-    isloading = false
+    this.data.moodList = [];
+    common.getUserId();
+    isloading = false;
     loadData(this)
   },
 
@@ -45,7 +45,7 @@ Page({
       path: '/pages/index/index'
     }
   },
-})
+});
 
 // 加载数据
 function loadData(thiss) {

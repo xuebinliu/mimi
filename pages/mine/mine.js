@@ -1,7 +1,7 @@
 
 //获取应用实例
 var common = require('../../utils/common.js');
-var generater = require('../../utils/generater.js');
+var generater = require('../../utils/generator.js');
 var Bmob=require("../../utils/bmob.js");
 var app = getApp()
 var that

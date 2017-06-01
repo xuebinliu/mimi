@@ -168,7 +168,7 @@ Page({
     return {
       title: that.data.listTitle,
       desc: that.data.listContent,
-      path: '/pages/listDetail/listDetail?moodId=' + optionId,
+      path: '/pages/detail/detail?moodId=' + optionId,
     }
   },
 

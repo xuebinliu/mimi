@@ -10,7 +10,7 @@ App({
   onLaunch: function () {
     Login.bombLogin();
     
-    Check.isInCheck(function (isInCheck){
+    Check.isInCheck(function (isInCheck) {
       console.log("onLaunch isInCheck status", isInCheck);
       getApp().globalData.isInCheck = isInCheck;
     });
@@ -26,10 +26,10 @@ App({
   },
 
   onPullDownRefresh:function(){
-    wx.stopPullDownRefresh()
+    wx.stopPullDownRefresh();
   },
   
   onError: function(msg) {
     
   }
-})
+});
