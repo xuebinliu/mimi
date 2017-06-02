@@ -77,75 +77,76 @@ Page({
   //保存秘密
   sendNewMood: function(e) {
     //判断秘密是否为空
-    var content=e.target.dataset.content;
-    var title=e.target.dataset.title;
-    if(content==""){
+    var content = e.target.dataset.content;
+    var title = e.target.dataset.title;
+    if(content == ""){
       common.dataLoading("秘密内容不能为空哦","loading");
+      return;
     }
-    else{
-      that.setData({
-        isdisabled:true,
-        hidePublishing:false
+
+    // 禁用发布按钮，显示发布进度弹窗
+    that.setData({
+      isdisabled:true,
+      hidePublishing:false
+    });
+
+    var Diary = Bmob.Object.extend("Diary");
+    var diary = new Diary();
+
+    var me = new Bmob.User();
+    me.id = getApp().globalData.user_id;
+    diary.set("publisher", me);
+
+    // location
+    if(location) {
+      var geoPoint = new Bmob.GeoPoint({
+        latitude: location.latitude,
+        longitude: location.longitude,
       });
-      
-      var Diary = Bmob.Object.extend("Diary");
-      var diary = new Diary();
+      diary.set("location", geoPoint);
+    }
 
-      var me = new Bmob.User();
-      me.id = getApp().globalData.user_id;
-      diary.set("publisher", me);
+    diary.set("title", title);
+    diary.set("content", content);
+    diary.set("likeNum", 0);
+    diary.set("commentNum", 0);
+    diary.set("liker", []);
+    if (that.data.isSrc == true) {
+      var name = that.data.src;
+      //上传的图片的别名
+      var file = new Bmob.File(name, that.data.src);
+      file.save();
+      diary.set("pic", file);
+    }
 
-      // location
-      if(location) {
-        var geoPoint = new Bmob.GeoPoint({
-          latitude: location.latitude,
-          longitude: location.longitude,
+    console.log('sendNewMood user_id', me.id);
+
+    diary.save(null, {
+      success: function (result) {
+        that.setData({
+          isdisabled: false,
+          hidePublishing: true
         });
-        diary.set("location", geoPoint);
-      }
 
-      diary.set("title", title);
-      diary.set("content", content);
-      diary.set("likeNum", 0);
-      diary.set("commentNum", 0);
-      diary.set("liker", []);
-      if (that.data.isSrc == true) {
-        var name = that.data.src;
-        //上传的图片的别名
-        var file = new Bmob.File(name, that.data.src);
-        file.save();
-        diary.set("pic", file);
-      }
-
-      console.log('sendNewMood user_id', me.id);
-
-      diary.save(null, {
-        success: function (result) {
-          that.setData({
-            isdisabled: false,
-            hidePublishing: true
+        common.dataLoading("发布成功", "success", function () {
+          wx.navigateBack({
+            delta: 1
           });
-
-          common.dataLoading("发布成功", "success", function () {
-            wx.navigateBack({
-              delta: 1
-            })
-          });
-        },
-        error: function (result, error) {
-          // 添加失败
-          console.log(error)
-          common.dataLoading("发布失败", "loading");
-          that.setData({
-            isdisabled: false,
-            hidePublishing: true
-          })
-        }
-      });
-    }
+        });
+      },
+      error: function (result, error) {
+        // 添加失败
+        console.log('save diary error', error);
+        common.dataLoading("发布失败", "loading");
+        that.setData({
+          isdisabled: false,
+          hidePublishing: true
+        });
+      }
+    });
   },
   
   onPullDownRefresh:function(){
-    wx.stopPullDownRefresh()
+    wx.stopPullDownRefresh();
   }
 });

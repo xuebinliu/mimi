@@ -12,7 +12,7 @@ Page({
     avatar:wx.getStorageSync('my_avatar'),
   },
 
-  onReady: function () {
+  onShow: function () {
     that = this;
     this.data.moodList = [];
     common.getUserId();
@@ -29,8 +29,18 @@ Page({
           loadData();
         }
       });
+
+      // 审核态，不取位置，直接拉数据
+      wx.setNavigationBarTitle({
+        title:"附近秘密"
+      });
+
     } else {
       // 审核态，不取位置，直接拉数据
+      wx.setNavigationBarTitle({
+        title:"我的秘密"
+      });
+
       loadData();
     }
   },

@@ -100,44 +100,6 @@ navigator {
   background: #000;
 }
 
-.toMine {
-  width: 100rpx;
-  height: 100rpx;
-  position: fixed;
-  right: 75rpx;
-  bottom: 140rpx;
-}
-
-.toWrite {
-  width: 100rpx;
-  height: 100rpx;
-  position: fixed;
-  right: 75rpx;
-  bottom: 20rpx;
-}
-
-.noData {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  left: 0;
-  top: 30%;
-  margin-top: -20rpx;
-  padding: 40rpx;
-  box-sizing: border-box;
-  font-size: 16px;
-  line-height: 26px;
-  color: #b5b5b5;
-}
-
-.noMoreData {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  color: #b5b5b5;
-  padding-bottom: 40rpx;
-}
 
 /*横线样式 margin 20rpx*/
 .line_with_margin_20 {

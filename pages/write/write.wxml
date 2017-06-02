@@ -17,7 +17,7 @@
 
 <view class="addConent">
   <textarea 
-    placeholder="亲，请尽情分享你的小秘密吧，完全匿名的哦~" 
+    placeholder="亲，在这里写下你的小秘密~"
     maxlength="3000" 
     value="" 
     bindblur="setContent" 
@@ -31,5 +31,5 @@
   data-title="{{title}}" 
   hover-start-time="200" 
   disabled="{{isdisabled}}">
-  分享
+  发布
 </button>
