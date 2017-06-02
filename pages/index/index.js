@@ -8,7 +8,8 @@ var isloading;
 Page({
   data: {
     moodList: [],
-    hasMoreData: true
+    hasMoreData: true,
+    avatar:wx.getStorageSync('my_avatar'),
   },
 
   onReady: function () {
@@ -32,6 +33,18 @@ Page({
       // 审核态，不取位置，直接拉数据
       loadData();
     }
+  },
+
+  tapMine: function () {
+    wx.navigateTo({
+      url: '../mine/mine'
+    });
+  },
+
+  tapWrite: function () {
+    wx.navigateTo({
+      url: '../write/write'
+    });
   },
 
   onReachBottom: function () {

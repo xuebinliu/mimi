@@ -29,6 +29,10 @@
   没有更多了
 </text>
 
-<navigator class="toMine" url="../mine/mine"/>
+<view class="toMine" bindtap="tapMine">
+    <image style="width:100rpx; height:100rpx; border-radius:50rpx;" mode="scaleToFill" src="{{avatar}}"></image>
+</view>
 
-<navigator class="toWrite" url="../write/write"/>
+<view class="toWrite" bindtap="tapWrite">
+    <image style="width:100rpx; height:100rpx; border-radius:50rpx;" mode="scaleToFill" src="../../static/images/write.png"></image>
+</view>
