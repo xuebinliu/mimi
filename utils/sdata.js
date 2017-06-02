@@ -21,11 +21,21 @@ function reload(count, geopoint, callback) {
   query.limit(15);
   query.include("publisher");
 
-  if(geopoint) {
-    query.near("location", new Bmob.GeoPoint({latitude: geopoint.latitude, longitude: geopoint.longitude}))
+  if(getApp().globalData.isInCheck) {
+    // 审核态只拉取自己的数据
+    query.descending("updateAt");
+    var user = new Bmob.User();
+    user.id = getApp().globalData.user_id;
+    query.equalTo("publisher", user);
   } else {
-    query.descending("commentNum");
+    if(geopoint) {
+      query.near("location", new Bmob.GeoPoint({latitude: geopoint.latitude, longitude: geopoint.longitude}))
+    } else {
+      query.descending("commentNum");
+    }
   }
+
+  console.log("reload query", query);
 
   // 查询所有数据
   query.find({
@@ -57,14 +67,16 @@ function reload(count, geopoint, callback) {
         // 自己是否赞过
         var liker = results[i].get("liker");
         var isLike = 0;
-        for (var j = 0; j < liker.length; j++) {
-          if (liker[j] == app.globalData.user_id) {
-            isLike = 1;
-            break;
+        if(liker) {
+          for (var j = 0; j < liker.length; j++) {
+            if (liker[j] == app.globalData.user_id) {
+              isLike = 1;
+              break;
+            }
           }
         }
 
-        // 位置信息
+        // 发布者的位置信息
         var location = results[i].get("location");
 
         var entity = {

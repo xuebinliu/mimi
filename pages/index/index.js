@@ -109,15 +109,17 @@ function loadData() {
           // 默认一次拉取15条数据，少于15条说明没有数据了
           that.setData({
             hasMoreData: false,
-          })
+          });
         }
 
-        // 计算距离
-        for(var i = 0; i<data.length; i++) {
-          var item = data[i]
-          if(item.location) {
-            item.locationDetail = common.getDistance(item.location.latitude, item.location.longitude,
-              location.latitude, location.longitude)
+        // 非审核态计算距离
+        if(!getApp().globalData.isInCheck) {
+          for(var i = 0; i<data.length; i++) {
+            var item = data[i];
+            if(location && item.location) {
+              item.locationDetail = common.getDistance(item.location.latitude, item.location.longitude,
+                location.latitude, location.longitude);
+            }
           }
         }
 
