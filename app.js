@@ -22,7 +22,7 @@ App({
   
   globalData:{
     user_id:"",
-    isInCheck:true,
+    isInCheck:true,   // 为了确保审核通过，默认处于审核态
   },
 
   onPullDownRefresh:function(){

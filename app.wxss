@@ -1,5 +1,4 @@
-page{font-size:14px;color:#646464;background:#f2f2f2;font-family:"黑体"}
-
+page{font-size:14px; color:#646464; background:#f2f2f2; font-family:"黑体"}
 
 .index_list {
   color: #666;
@@ -100,7 +99,6 @@ navigator {
   background: #000;
 }
 
-
 /*横线样式 margin 20rpx*/
 .line_with_margin_20 {
   width: 100%;
@@ -113,5 +111,27 @@ navigator {
 .location {
   margin-bottom: 10rpx;
   font-size: 10;
+}
 
+.noData {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  top: 30%;
+  margin-top: -20rpx;
+  padding: 40rpx;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 26px;
+  color: #b5b5b5;
+}
+
+.noMoreData {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  color: #b5b5b5;
+  padding-bottom: 40rpx;
 }

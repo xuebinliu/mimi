@@ -8,7 +8,7 @@ var Bmob = require("bmob.js");
 
 var app = getApp();
 
-function reload(count, geopoint, callback) {
+function reload(isMe, count, geopoint, callback) {
   console.log('reload skip count,geopoint', count, geopoint);
 
   var entityList = new Array();
@@ -21,8 +21,8 @@ function reload(count, geopoint, callback) {
   query.limit(15);
   query.include("publisher");
 
-  if(getApp().globalData.isInCheck) {
-    // 审核态只拉取自己的数据
+  if (getApp().globalData.isInCheck || isMe) {
+    // 审核态或者是拉自己的历史数据，则只拉取自己的数据
     query.descending("updateAt");
     var user = new Bmob.User();
     user.id = getApp().globalData.user_id;

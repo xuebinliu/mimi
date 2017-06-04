@@ -1,48 +1,79 @@
-//获取应用实例
+
 var common = require('../../utils/common.js');
 var SData = require("../../utils/sdata.js");
 var location = null;
 var that;
 var isloading;
+var isHistory;
 
 Page({
   data: {
     moodList: [],
     hasMoreData: true,
-    avatar:wx.getStorageSync('my_avatar'),
+    avatar:"",
+  },
+
+  onLoad: function (options) {
+    that = this;
+    if (options.isHistory) {
+      isHistory = options.isHistory;
+      console.log("onLoad options isHistory", isHistory);
+    }
   },
 
   onShow: function () {
-    that = this;
     this.data.moodList = [];
-    common.getUserId();
+    
     isloading = false;
 
-    if(!getApp().globalData.isInCheck) {
-      // 非审核态，获取地理位置
-      wx.getLocation({
-        success: function(res) {
-          location = res;
-          console.log('getLocation', location);
-        },
-        complete: function() {
-          loadData();
+    var avatarInteral = setInterval(function () {
+      // 初始化完成再加载数据
+      wx.getStorage({
+        key: "my_avatar",
+        success: function (res) {
+          if (res.data) {
+            clearInterval(avatarInteral);
+            that.setData({
+              avatar: res.data
+            });
+
+            common.getUserId();
+
+            if (!getApp().globalData.isInCheck) {
+              // 非审核态，获取地理位置
+              wx.getLocation({
+                success: function (res) {
+                  location = res;
+                  console.log('getLocation', location);
+                },
+                complete: function () {
+                  loadData();
+                }
+              });
+              
+              wx.setNavigationBarTitle({
+                title: "附近秘密"
+              });
+
+            } else {
+              
+              wx.setNavigationBarTitle({
+                title: "我的秘密"
+              });
+
+              // 审核态，不取位置，直接拉数据
+              loadData();
+            }
+
+            if(isHistory) {
+              wx.setNavigationBarTitle({
+                title: "已发布"
+              });
+            }
+          }
         }
-      });
-
-      // 审核态，不取位置，直接拉数据
-      wx.setNavigationBarTitle({
-        title:"附近秘密"
-      });
-
-    } else {
-      // 审核态，不取位置，直接拉数据
-      wx.setNavigationBarTitle({
-        title:"我的秘密"
-      });
-
-      loadData();
-    }
+      })
+    }, 200);
   },
 
   tapMine: function () {
@@ -74,7 +105,7 @@ Page({
 
     console.log('onPullDownRefresh loadData');
 
-    loadData()
+    loadData();
   },
 
   onShareAppMessage: function () {
@@ -104,7 +135,7 @@ function loadData() {
     hasMoreData: true,
   });
 
-  SData.reload(that.data.moodList.length, location, function (success, data) {
+  SData.reload(isHistory, that.data.moodList.length, location, function (success, data) {
     wx.hideLoading();
 
     isloading = false;

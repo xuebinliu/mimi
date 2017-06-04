@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/detail/detail",
     "pages/write/write",
@@ -7,11 +7,11 @@
     "pages/advise/advise",
     "pages/about/about"
   ],
-  "window":{
-    "backgroundTextStyle":"dark",
+  "window": {
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#FEFEFE",
-    "navigationBarTextStyle":"black",
-    "enablePullDownRefresh":true
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
   },
   "networkTimeout": {
     "request": 20000,

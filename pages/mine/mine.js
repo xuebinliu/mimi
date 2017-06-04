@@ -3,16 +3,15 @@
 var common = require('../../utils/common.js');
 var generater = require('../../utils/generator.js');
 var Bmob=require("../../utils/bmob.js");
-var app = getApp()
-var that
+var that;
 
 Page({
   onLoad: function(options) {
-      that=this;   
+      that = this;   
       that.setData({
         uploadingImg:false,    // 是否正在上传头像
         isdisabled:false,
-        modifyLoading:false
+        modifyLoading:false,
       }) 
   },
 
@@ -25,7 +24,7 @@ Page({
           userImg: res.data,
         })
       }
-    })
+    });
 
     // 获取昵称
     wx.getStorage({
@@ -34,16 +33,27 @@ Page({
         that.setData({
           userName: res.data,
           inputValue: res.data
-        })
+        });
       }
-    })
+    });
+
+    this.setData({
+      isInCheck: getApp().globalData.isInCheck,
+    });
   },
 
   // 点击建议
   tapAdvise: function() {
     wx.navigateTo({
       url: '../advise/advise',
-    })
+    });
+  },
+
+  // 点击发布历史
+  tapHistory: function() {
+    wx.navigateTo({
+      url: '../index/index?isHistory=true',
+    });
   },
 
   // 点击关于
@@ -55,7 +65,7 @@ Page({
 
   // 点击修改头像
   tapModifyAvatar: function(){
-    var key = app.globalData.user_id
+    var key = getApp().globalData.user_id
     if (key) {
       wx.showActionSheet({
         itemList: ['随机', '相册', '拍照'],
