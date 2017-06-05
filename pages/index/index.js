@@ -19,11 +19,9 @@ Page({
       isHistory = options.isHistory;
       console.log("onLoad options isHistory", isHistory);
     }
-  },
 
-  onShow: function () {
     this.data.moodList = [];
-    
+
     isloading = false;
 
     var avatarInteral = setInterval(function () {
@@ -50,13 +48,11 @@ Page({
                   loadData();
                 }
               });
-              
+
               wx.setNavigationBarTitle({
                 title: "附近秘密"
               });
-
             } else {
-              
               wx.setNavigationBarTitle({
                 title: "我的秘密"
               });
@@ -65,7 +61,7 @@ Page({
               loadData();
             }
 
-            if(isHistory) {
+            if (isHistory) {
               wx.setNavigationBarTitle({
                 title: "已发布"
               });

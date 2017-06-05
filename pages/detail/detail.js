@@ -288,9 +288,9 @@ Page({
                 success: function (myObject) {
                   // 删除成功
                   common.dataLoading("删除成功", "success", function () {
-                    wx.navigateBack({
-                      delta: 1
-                    })
+                    wx.reLaunch({
+                      url: '../index/index',
+                    });
                   });
                 },
                 error: function (myObject, error) {

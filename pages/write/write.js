@@ -129,8 +129,8 @@ Page({
         });
 
         common.dataLoading("发布成功", "success", function () {
-          wx.navigateBack({
-            delta: 1
+          wx.reLaunch({
+            url: '../index/index',
           });
         });
       },

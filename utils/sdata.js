@@ -23,7 +23,7 @@ function reload(isMe, count, geopoint, callback) {
 
   if (getApp().globalData.isInCheck || isMe) {
     // 审核态或者是拉自己的历史数据，则只拉取自己的数据
-    query.descending("updateAt");
+    query.descending("createdAt");
     var user = new Bmob.User();
     user.id = getApp().globalData.user_id;
     query.equalTo("publisher", user);
