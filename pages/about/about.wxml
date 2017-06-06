@@ -1,5 +1,5 @@
 <view class="topBox">
   <image src="../../static/images/logo_144.png" mode="aspectFill"></image>
-  <text>v1.0.1</text>
+  <text>v1.0.2</text>
   <text>匿名秘密</text>
 </view>

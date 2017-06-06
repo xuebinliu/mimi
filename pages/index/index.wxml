@@ -22,7 +22,7 @@
 <view class="bord"/>
 
 <text class="noData" wx:if="{{moodList.length<=0}}">
-  亲，来写一篇吧
+  亲，来写一个秘密吧
 </text>
 
 <text class="noMoreData" wx:if="{{!hasMoreData && moodList.length != 0}}">

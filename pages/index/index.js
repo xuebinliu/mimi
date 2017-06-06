@@ -31,6 +31,7 @@ Page({
         success: function (res) {
           if (res.data) {
             clearInterval(avatarInteral);
+            console.log('get my_avatar', res.data);
             that.setData({
               avatar: res.data
             });

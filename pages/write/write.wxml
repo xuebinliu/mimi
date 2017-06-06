@@ -20,6 +20,7 @@
     placeholder="亲，在这里写下你的小秘密~"
     maxlength="3000" 
     value="" 
+    bindinput="setContent"
     bindblur="setContent" 
     bindconfirm="setContent" />
 </view>

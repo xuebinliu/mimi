@@ -1,7 +1,7 @@
 
 var Bmob = require("bmob.js");
 
-var current_version = "1.0.1";
+var current_version = "1.0.2";
 
 
 /**
