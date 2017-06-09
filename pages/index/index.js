@@ -1,7 +1,6 @@
 
 var common = require('../../utils/common.js');
 var SData = require("../../utils/sdata.js");
-var location = null;
 var that;
 var isloading;
 var isHistory;
@@ -24,53 +23,24 @@ Page({
 
     isloading = false;
 
-    var avatarInteral = setInterval(function () {
-      // 初始化完成再加载数据
-      wx.getStorage({
-        key: "my_avatar",
-        success: function (res) {
-          if (res.data) {
-            clearInterval(avatarInteral);
-            console.log('get my_avatar', res.data);
-            that.setData({
-              avatar: res.data
-            });
+    common.getUserId();
 
-            common.getUserId();
+    if (!getApp().globalData.isInCheck) {
+      // 非审核态，获取地理位置
+      common.getLocation(function (res) {
+        loadData();
+      });
 
-            if (!getApp().globalData.isInCheck) {
-              // 非审核态，获取地理位置
-              wx.getLocation({
-                success: function (res) {
-                  location = res;
-                  console.log('getLocation', location);
-                },
-                complete: function () {
-                  loadData();
-                }
-              });
+      wx.setNavigationBarTitle({
+        title: "附近分享"
+      });
+    }
 
-              wx.setNavigationBarTitle({
-                title: "附近秘密"
-              });
-            } else {
-              wx.setNavigationBarTitle({
-                title: "我的秘密"
-              });
-
-              // 审核态，不取位置，直接拉数据
-              loadData();
-            }
-
-            if (isHistory) {
-              wx.setNavigationBarTitle({
-                title: "已发布"
-              });
-            }
-          }
-        }
-      })
-    }, 200);
+    if (isHistory) {
+      wx.setNavigationBarTitle({
+        title: "我的分享"
+      });
+    }
   },
 
   tapMine: function () {
@@ -107,8 +77,8 @@ Page({
 
   onShareAppMessage: function () {
     return {
-      title: '匿名秘密',
-      desc: '一个小秘密~',
+      title: '匿名分享',
+      desc: '一个小分享~',
       path: '/pages/index/index'
     }
   },
@@ -117,7 +87,7 @@ Page({
 // 加载数据
 function loadData() {
   if (isloading) {
-    console.log('loadData aready is loading return');
+    console.log('loadData already is loading return');
     return;
   } else {
     isloading = true
@@ -132,6 +102,7 @@ function loadData() {
     hasMoreData: true,
   });
 
+  var location = common.getLocation();
   SData.reload(isHistory, that.data.moodList.length, location, function (success, data) {
     wx.hideLoading();
 
@@ -168,7 +139,7 @@ function loadData() {
         console.log('loadData finished, all length', that.data.moodList.length)
       }
     } else {
-      common.dataLoading("获取数据失败，请下拉刷新重试", "failed", null)
+      common.dataLoading("获取数据失败", "failed", null)
     }
   });
 }
