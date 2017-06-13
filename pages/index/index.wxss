@@ -2,6 +2,14 @@ page {
   background: #ebebeb;
 }
 
+.toVip {
+  width: 100rpx;
+  height: 100rpx;
+  position: fixed;
+  right: 75rpx;
+  bottom: 260rpx;
+}
+
 .toMine {
   width: 100rpx;
   height: 100rpx;

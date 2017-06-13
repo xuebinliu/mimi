@@ -73,6 +73,12 @@ Page({
     }, 200);
   },
 
+  tapVip: function () {
+    wx.navigateTo({
+      url: '../vip/vip'
+    });
+  },
+
   tapMine: function () {
     wx.navigateTo({
       url: '../mine/mine'

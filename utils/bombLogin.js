@@ -43,6 +43,8 @@ function mimiLogin() {
                 // 获取昵称和头像
                 var nickName = userInfo.nickName;
                 var avatarUrl = userInfo.avatarUrl;
+                var gender = userInfo.gender;
+                var city = userInfo.city;
 
                 // 默认用户名和密码都为用户的openid
                 Bmob.User.logIn(userData.openid, userData.openid, {
@@ -58,6 +60,8 @@ function mimiLogin() {
                       user.set("password", userData.openid);
                       user.set("nickname", nickName);
                       user.set("userPic", avatarUrl);
+                      user.set("gender", gender);
+                      user.set("city", city);
                       user.set("userData", userData);
                       console.log('sign up start');
                       user.signUp(null, {

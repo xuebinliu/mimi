@@ -1,0 +1,14 @@
+<!--vip.wxml-->
+<view class="page_container">
+
+  <!--改变位置，查找附近-->
+  <text style="align-self:center">更改位置</text>
+  <view class="location_container">
+    <text>位置：</text>
+    <button bindtap="tapLocation">换位置</button>
+  </view>
+
+  <!--性别-->
+
+
+</view>
