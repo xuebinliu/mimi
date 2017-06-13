@@ -7,7 +7,6 @@
 var Bmob = require("../../utils/bmob.js");
 var common = require('../../utils/common.js');
 var that = null;
-var location = null;
 
 Page({
   data: {
@@ -23,17 +22,6 @@ Page({
   onLoad: function() {
     that = this;
     common.getUserId()
-  },
-
-  onReady: function() {
-    if(!getApp().globalData.isInCheck) {
-      wx.getLocation({
-        success: function (res) {
-          location = res;
-          console.log('getLocation location', location);
-        },
-      });
-    }
   },
 
   //选择图片
@@ -98,6 +86,7 @@ Page({
     diary.set("publisher", me);
 
     // location
+    var location = common.getLocation();
     if(location) {
       var geoPoint = new Bmob.GeoPoint({
         latitude: location.latitude,

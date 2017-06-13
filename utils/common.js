@@ -1,4 +1,33 @@
 
+// 地理位置
+var location = null;
+
+function getLocation(callback) {
+  if(getApp().globalData.isInCheck) {
+    // 审核状态不获取地理位置
+    callback(null);
+    return null;
+  }
+
+  if(location) {
+    callback(location);
+    return location;
+  }
+
+  wx.getLocation({
+    success: function (res) {
+      location = res;
+      callback(location);
+      console.log('getLocation location', location);
+    },
+    fail:function () {
+      callback(null);
+    }
+  });
+
+  return null;
+}
+
 function dataLoading(txt,icon,fun){
   wx.showToast({
     title: txt,
@@ -57,3 +86,4 @@ module.exports.showModal = showModal;
 module.exports.dataLoading = dataLoading;
 module.exports.getUserId = getUserId;
 module.exports.getDistance = getDistance;
+module.exports.getLocation = getLocation;
