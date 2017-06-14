@@ -10,6 +10,7 @@ Page({
     moodList: [],
     hasMoreData: true,
     avatar:"",
+    isInCheck:getApp().globalData.isInCheck,
   },
 
   onLoad: function (options) {
@@ -19,13 +20,17 @@ Page({
       console.log("onLoad options isHistory", isHistory);
     }
 
-    this.data.moodList = [];
+    this.setData({
+      moodList:[],
+      isInCheck:getApp().globalData.isInCheck
+    });
+
 
     isloading = false;
 
     common.getUserId();
 
-    if (!getApp().globalData.isInCheck) {
+    if (!this.data.isInCheck) {
       // 非审核态，获取地理位置
       common.getLocation(function (res) {
         loadData();
@@ -82,12 +87,30 @@ Page({
   },
 
   onShareAppMessage: function () {
-    return {
-      title: '匿名分享',
-      desc: '一个小分享~',
-      path: '/pages/index/index'
+    if(this.data.isInCheck) {
+      return;
+    } else {
+      return {
+        title: '匿名分享',
+        desc: '一个小分享~',
+        path: '/pages/index/index'
+      }
     }
   },
+
+  addPic: function () {
+    wx.chooseImage({
+      count: 1,   // 默认9
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        console.log('chooseImage', res);
+        wx.navigateTo({
+          url: '../pic/pic?url='+res.tempFilePaths,
+        });
+      }
+    })
+  }
 });
 
 // 加载数据

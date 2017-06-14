@@ -25,3 +25,18 @@ page {
   right: 75rpx;
   bottom: 20rpx;
 }
+
+
+.add_pic {
+  display: flex;
+  flex:1;
+  flex-direction:column;
+  align-items: center;
+
+}
+
+.add_pic image {
+  margin-top:200rpx;
+  width:200rpx;
+  height:200rpx;
+}

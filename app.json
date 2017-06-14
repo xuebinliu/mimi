@@ -6,7 +6,8 @@
     "pages/mine/mine",
     "pages/advise/advise",
     "pages/about/about",
-    "pages/vip/vip"
+    "pages/vip/vip",
+    "pages/pic/pic"
   ],
   "window": {
     "backgroundTextStyle": "dark",

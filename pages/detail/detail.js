@@ -87,7 +87,7 @@ Page({
           userNick: userNick,
           loading: true,
           isMine: publisher.id == app.globalData.user_id
-        })
+        });
 
         for (var i = 0; i < liker.length; i++) {
           var isLike = 0;
@@ -95,7 +95,7 @@ Page({
             isLike = 1;
             that.setData({
               agree: isLike
-            })
+            });
             break;
           }
         }
@@ -105,8 +105,8 @@ Page({
       error: function (error) {
         that.setData({
           loading: true
-        })
-        console.log(error)
+        });
+        console.log(error);
       }
     });
   },

@@ -1,0 +1,5 @@
+
+<canvas wx:if="{{drawing}}" style="width:{{imageWidth}}px;height:{{imageHeight}}px;" canvas-id="myCanvas"/>
+
+
+<image wx:if="{{!drawing}}" bindload="imageLoad" style="width:{{imageWidth}}px;;height:{{imageHeight}}px;" src="{{url}}"/>
