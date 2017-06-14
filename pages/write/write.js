@@ -103,6 +103,7 @@ Page({
     if (that.data.isSrc == true) {
       var name = that.data.src;
       //上传的图片的别名
+      console.log('sendNewMood file path', name);
       var file = new Bmob.File(name, that.data.src);
       file.save();
       diary.set("pic", file);

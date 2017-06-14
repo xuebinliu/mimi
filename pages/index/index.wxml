@@ -41,7 +41,7 @@
 </view>
 
 
-<view class="add_pic" bindtap="addPic">
+<view class="add_pic" bindtap="addPic" wx:if="{{isInCheck}}">
     <image src="http://bmob-cdn-7744.b0.upaiyun.com/2016/11/23/95953c8b40f0d089800ebec438581cc4.png" mode="aspectFill"></image>
     <view>添加图片</view>
 </view>

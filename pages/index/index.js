@@ -22,7 +22,6 @@ Page({
 
     this.setData({
       moodList:[],
-      isInCheck:getApp().globalData.isInCheck
     });
 
 
@@ -46,6 +45,12 @@ Page({
         title: "我的分享"
       });
     }
+  },
+
+  onShow:function () {
+    this.setData({
+      isInCheck:getApp().globalData.isInCheck
+    });
   },
 
   tapVip: function () {
@@ -105,8 +110,10 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         console.log('chooseImage', res);
+
+        var tempFilePaths = res.tempFilePaths;
         wx.navigateTo({
-          url: '../pic/pic?url='+res.tempFilePaths,
+          url: '../pic/pic?url='+tempFilePaths,
         });
       }
     })

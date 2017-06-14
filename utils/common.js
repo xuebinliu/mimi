@@ -10,14 +10,20 @@ function getLocation(callback) {
   }
 
   if(location) {
-    callback(location);
-    return location;
+    if(callback) {
+      callback(location);
+      return;
+    } else {
+      return location;
+    }
   }
 
   wx.getLocation({
     success: function (res) {
       location = res;
-      callback(location);
+      if(callback) {
+        callback(location);
+      }
       console.log('getLocation location', location);
     },
     fail:function () {

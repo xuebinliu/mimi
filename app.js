@@ -11,8 +11,8 @@ App({
     Login.bombLogin();
     
     Check.isInCheck(function (isInCheck) {
-      console.log("onLaunch isInCheck status", isInCheck);
       getApp().globalData.isInCheck = isInCheck;
+      console.log("onLaunch globalData", getApp().globalData);
     });
   },
 
