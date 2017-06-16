@@ -1,13 +1,14 @@
 // pic.js
 
-
 var Bmob = require("../../utils/bmob.js");
 var that;
-var sysInfo;
 
 Page({
   data: {
     url:"",
+    pixelRatio:0,
+    canvasWidth:0,
+    canvasHeight:0,
     imageWidth:0,
     imageHeight:0,
     drawing:false,
@@ -24,6 +25,38 @@ Page({
       url:options.url
     });
 
+    wx.getSystemInfo({
+      success: res => {
+        console.log('getSystemInfo', res);
+        that.setData({
+          canvasWidth:res.windowWidth,
+          canvasHeight:res.windowHeight,
+          pixelRatio:res.pixelRatio,
+        });
+
+        wx.getImageInfo({
+          src:that.data.url,
+          success:function (res) {
+            console.log('getImageInfo success', res);
+            that.setData({
+              imageWidth:res.width/that.data.pixelRatio,
+              imageHeight:res.height/that.data.pixelRatio,
+            });
+
+            that.setData({
+              drawing:true,
+            });
+            that.draw();
+          },
+          fail:function (error) {
+            console.log('getImageInfo error', error);
+          }
+        });
+      }
+    });
+
+
+    /*
     var file = new Bmob.File(this.data.url, [this.data.url]);
     file.save().then(function (res) {
       console.log('Bmob.File save success', res);
@@ -53,6 +86,7 @@ Page({
     }, function (error) {
       console.log('Bmob.File save error', error);
     });
+    */
   },
 
   onPullDownRefresh: function () {
@@ -62,8 +96,8 @@ Page({
   draw: function () {
     var ctx = wx.createCanvasContext('myCanvas');
 
-    var sh = sysInfo.windowHeight / this.data.imageHeight;
-    var sw = sysInfo.windowWidth / this.data.imageWidth;
+    var sh = this.data.canvasHeight / this.data.imageHeight;
+    var sw = this.data.canvasWidth / this.data.imageWidth;
 
     var x = 0;
     var y = 0;
@@ -76,8 +110,9 @@ Page({
     }
 
     console.log('scale sh sw', sh, sw);
-    ctx.scale(Math.min(sh, sw), Math.min(sh, sw));
-    ctx.drawImage(that.data.url, x, y, this.data.imageWidth, this.data.imageHeight);
+    // ctx.scale(Math.min(sh, sw), Math.min(sh, sw));
+    ctx.scale(sw, sh);
+    ctx.drawImage(that.data.url, 0, 0, this.data.imageWidth, this.data.imageHeight);
 
     if(this.data.faceRect) {
       var face = this.data.faceRect;
@@ -87,25 +122,5 @@ Page({
 
     ctx.draw();
   },
-
-  imageLoad:function (e) {
-    console.log('imageLoad', e);
-    wx.getSystemInfo({
-      success: res => {
-        console.log('getSystemInfo', res);
-        sysInfo = res;
-        // 保存绘制区域和图片的宽高rpx大小
-        that.setData({
-          imageWidth:e.detail.width/sysInfo.pixelRatio,
-          imageHeight:e.detail.height/sysInfo.pixelRatio,
-        });
-
-        that.setData({
-          drawing:true,
-        });
-        that.draw();
-      }
-    });
-  }
 
 });
