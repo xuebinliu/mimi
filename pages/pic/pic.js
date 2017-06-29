@@ -11,7 +11,6 @@ Page({
     canvasHeight:0,
     imageWidth:0,
     imageHeight:0,
-    drawing:false,
     faceRect:null,
   },
 
@@ -27,7 +26,7 @@ Page({
 
     wx.getSystemInfo({
       success: res => {
-        console.log('getSystemInfo', res);
+        console.log('getSystemInfo success', res);
         that.setData({
           canvasWidth:res.windowWidth,
           canvasHeight:res.windowHeight,
@@ -43,14 +42,8 @@ Page({
               imageHeight:res.height/that.data.pixelRatio,
             });
 
-            that.setData({
-              drawing:true,
-            });
             that.draw();
           },
-          fail:function (error) {
-            console.log('getImageInfo error', error);
-          }
         });
       }
     });
@@ -96,6 +89,7 @@ Page({
   draw: function () {
     var ctx = wx.createCanvasContext('myCanvas');
 
+    // 计算x y方向的缩放比例
     var sh = this.data.canvasHeight / this.data.imageHeight;
     var sw = this.data.canvasWidth / this.data.imageWidth;
 
@@ -103,21 +97,21 @@ Page({
     var y = 0;
     if(sh < sw) {
       var d = sw - sh;
-      x = d * sysInfo.windowWidth;
+      x = d * this.data.canvasWidth;
     } else {
       var d = sh - sw;
-      y = d * sysInfo.windowHeight;
+      y = d * this.data.canvasHeight;
     }
 
     console.log('scale sh sw', sh, sw);
-    // ctx.scale(Math.min(sh, sw), Math.min(sh, sw));
-    ctx.scale(sw, sh);
-    ctx.drawImage(that.data.url, 0, 0, this.data.imageWidth, this.data.imageHeight);
+    ctx.scale(Math.min(sh, sw), Math.min(sh, sw));
+    // ctx.scale(sw, sh);
+    ctx.drawImage(that.data.url, x, y, this.data.imageWidth, this.data.imageHeight);
 
     if(this.data.faceRect) {
       var face = this.data.faceRect;
       console.log('faceRect', face);
-      ctx.fillRect(face.left/sysInfo.pixelRatio, face.top/sysInfo.pixelRatio, face.width/sysInfo.pixelRatio, face.height/sysInfo.pixelRatio);
+      ctx.fillRect(face.left/this.data.pixelRatio, face.top/this.data.pixelRatio, face.width/this.data.pixelRatio, face.height/this.data.pixelRatio);
     }
 
     ctx.draw();
