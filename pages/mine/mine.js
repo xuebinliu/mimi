@@ -56,13 +56,6 @@ Page({
     });
   },
 
-  // 点击关于
-  tapAbout: function() {
-    wx.navigateTo({
-      url: '../about/about',
-    })
-  },
-
   // 点击修改头像
   tapModifyAvatar: function(){
     var key = getApp().globalData.user_id

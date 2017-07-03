@@ -19,17 +19,13 @@ App({
   onShow:function(){
     
   },
-  
-  globalData:{
-    user_id:"",
-    isInCheck:true,   // 为了确保审核通过，默认处于审核态
-  },
 
   onPullDownRefresh:function(){
     wx.stopPullDownRefresh();
   },
-  
-  onError: function(msg) {
-    
-  }
+
+  globalData:{
+    user_id:"",
+    isInCheck:true,   // 为了确保审核通过，默认处于审核态
+  },
 });

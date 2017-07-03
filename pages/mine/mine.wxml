@@ -32,12 +32,6 @@
       <image mode="aspectFit" src="../../images/advise.png"/>
       <view  class="operationsItem" bindtap="tapAdvise">建议</view>
     </view>
-    <view class="operationsLine"></view>
-
-    <view class="oItemLayer" hover-class="operationsItemHover">
-      <image mode="aspectFit" src="../../images/about.png"/>
-      <view  class="operationsItem" bindtap="tapAbout">关于</view>
-    </view>
   </view>
 
   <view class="modify_nick_layer" wx:if="{{isModifyNick}}" bindtap="hiddenComment"></view>

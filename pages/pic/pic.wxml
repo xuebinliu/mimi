@@ -1,2 +1,6 @@
 
 <canvas style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;" canvas-id="myCanvas"/>
+
+<view class="tool_container" bindtap="tapSave">
+    <image mode="scaleToFill" src="../../images/save.png"/>
+</view>
