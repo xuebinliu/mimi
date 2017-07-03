@@ -11,31 +11,31 @@
 
   <view class="operations">
     <view class="oItemLayer" bindtap="tapModifyAvatar">
-      <image mode="aspectFit" src="../../static/images/modify_head.png"/>
+      <image mode="aspectFit" src="../../images/modify_head.png"/>
       <view class="operationsItem">修改头像</view>
     </view>
     <view class="operationsLine"></view>
 
     <view class="oItemLayer" bindtap="modifyNick">
-      <image mode="aspectFit" src="../../static/images/modify_name.png"/>
+      <image mode="aspectFit" src="../../images/modify_name.png"/>
       <view class="operationsItem">修改昵称</view>
     </view>
     <view class="operationsLine"></view>
 
     <view class="oItemLayer" hover-class="operationsItemHover" wx:if="{{!isInCheck}}">
-      <image mode="aspectFit" src="../../static/images/history.png"/>
+      <image mode="aspectFit" src="../../images/history.png"/>
       <view  class="operationsItem" bindtap="tapHistory">已发布</view>
     </view>
     <view class="operationsLine"></view>
 
     <view class="oItemLayer" hover-class="operationsItemHover">
-      <image mode="aspectFit" src="../../static/images/advise.png"/>
+      <image mode="aspectFit" src="../../images/advise.png"/>
       <view  class="operationsItem" bindtap="tapAdvise">建议</view>
     </view>
     <view class="operationsLine"></view>
 
     <view class="oItemLayer" hover-class="operationsItemHover">
-      <image mode="aspectFit" src="../../static/images/about.png"/>
+      <image mode="aspectFit" src="../../images/about.png"/>
       <view  class="operationsItem" bindtap="tapAbout">关于</view>
     </view>
   </view>

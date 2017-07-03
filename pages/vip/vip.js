@@ -2,7 +2,7 @@
 Page({
 
   data: {
-    vip_src:"../../static/images/vip_disable.png",
+    vip_src:"../../images/vip_disable.png",
   },
 
   onLoad: function (options) {

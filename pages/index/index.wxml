@@ -29,7 +29,7 @@
 
 <view class="toVip" bindtap="tapVip" wx:if="{{!isInCheck}}">
     <image style="width:100rpx; height:100rpx; border-radius:50rpx;" mode="scaleToFill" 
-      src="../../static/images/vip.png"/>
+      src="../../images/vip.png"/>
 </view>
 
 <view class="toMine" bindtap="tapMine" wx:if="{{!isInCheck}}">
@@ -37,7 +37,7 @@
 </view>
 
 <view class="toWrite" bindtap="tapWrite" wx:if="{{!isInCheck}}">
-    <image style="width:100rpx; height:100rpx; border-radius:50rpx;" mode="scaleToFill" src="../../static/images/write.png"></image>
+    <image style="width:100rpx; height:100rpx; border-radius:50rpx;" mode="scaleToFill" src="../../images/write.png"></image>
 </view>
 
 
