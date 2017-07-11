@@ -29,7 +29,7 @@ Page({
     });
 
     wx.showLoading({
-      title:'分析中...',
+      title:'分析人脸中...',
       mask:true,
     });
 
@@ -103,6 +103,8 @@ Page({
 
     ctx.scale(s, s);
 
+    console.log('draw x y', x, y);
+
     // 画图片
     ctx.drawImage(that.data.url, x, y, this.data.imageWidth, this.data.imageHeight);
 
@@ -110,12 +112,17 @@ Page({
     if(this.data.faceRect) {
       for(var i=0; i<this.data.faceRect.length; i++) {
         var face = this.data.faceRect[i].face_rectangle;
-        console.log('draw face rect', face);
+
         ctx.drawImage("../../images/cat.png",
           x + face.left/this.data.pixelRatio,
           y + face.top/this.data.pixelRatio,
           face.width/this.data.pixelRatio,
           face.height/this.data.pixelRatio);
+
+        console.log('draw face rect', face, x + face.left / this.data.pixelRatio,
+          y + face.top / this.data.pixelRatio,
+          face.width / this.data.pixelRatio,
+          face.height / this.data.pixelRatio);
       }
     }
 
@@ -140,10 +147,11 @@ Page({
             data:res.url(),
             success:function (res) {
               console.log('setClipboardData success', res);
-              wx.showToast({
-                title: '下载链接在剪切板',
-                duration:3000,
-              })
+              wx.showModal({
+                title: '提示',
+                content: '亲,下载链接已保存在剪切板,请用浏览器下载哦~',
+                showCancel:false,
+              });
             }
           });
         });
