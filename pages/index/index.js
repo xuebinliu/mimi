@@ -1,16 +1,16 @@
-
 var common = require('../../utils/common.js');
 var SData = require("../../utils/sdata.js");
+
+var isHistory;    // 是否显示为历史消息界面
 var that;
-var isloading;
-var isHistory;
 
 Page({
   data: {
     moodList: [],
-    hasMoreData: true,
     avatar:"",
-    isInCheck:getApp().globalData.isInCheck,
+    hasMoreData: true,
+    isInCheck:true,
+    isInit:false,
   },
 
   onLoad: function (options) {
@@ -24,33 +24,42 @@ Page({
       moodList:[],
     });
 
-
-    isloading = false;
-
     common.getUserId();
-
-    if (!this.data.isInCheck) {
-      // 非审核态，获取地理位置
-      common.getLocation(function (res) {
-        loadData();
-      });
-
-      wx.setNavigationBarTitle({
-        title: "附近分享"
-      });
-    }
 
     if (isHistory) {
       wx.setNavigationBarTitle({
-        title: "我的分享"
+        title: "我的秘密"
       });
     }
   },
 
   onShow:function () {
-    this.setData({
-      isInCheck:getApp().globalData.isInCheck
-    });
+    var init = setInterval(function () {
+      if(getApp().globalData.isInitCheck && getApp().globalData.isInitUser) {
+        clearInterval(init);
+
+        that.setData({
+          isInCheck:getApp().globalData.isInCheck,
+          avatar:wx.getStorageSync('my_avatar'),
+          isInit:true,
+        });
+
+        if (!that.data.isInCheck) {
+          // 非审核态，获取地理位置
+          common.getLocation(function (res) {
+            loadData();
+          });
+
+          wx.setNavigationBarTitle({
+            title: "附近秘密"
+          });
+        }
+
+        console.log('check init complete');
+      } else {
+        console.log('init ing');
+      }
+    }, 100);
   },
 
   tapVip: function () {
@@ -81,12 +90,17 @@ Page({
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh();
 
+    if(this.data.isInCheck) {
+      console.log('onPullDownRefresh in check return');
+      return;
+    }
+
+    console.log('onPullDownRefresh loadData');
+
     // 下拉刷新，清除数据
     this.setData({
       moodList: []
     });
-
-    console.log('onPullDownRefresh loadData');
 
     loadData();
   },
@@ -121,6 +135,7 @@ Page({
 });
 
 // 加载数据
+var isloading = false;    // 避免重复加载发送请求
 function loadData() {
   if (isloading) {
     console.log('loadData already is loading return');

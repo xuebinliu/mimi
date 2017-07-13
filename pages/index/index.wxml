@@ -20,7 +20,7 @@
 </view>
 
 <text class="noData" wx:if="{{!isInCheck && moodList.length<=0}}">
-  亲，来写一个秘密吧
+  亲，附近还没有密码，来写一个吧:)
 </text>
 
 <text class="noMoreData" wx:if="{{!isInCheck && !hasMoreData && moodList.length != 0}}">
@@ -40,8 +40,7 @@
     <image style="width:100rpx; height:100rpx; border-radius:50rpx;" mode="scaleToFill" src="../../images/write.png"></image>
 </view>
 
-
-<view class="add_pic" bindtap="addPic" wx:if="{{isInCheck}}">
+<view class="add_pic" bindtap="addPic" wx:if="{{isInCheck && isInit}}">
     <image src="http://bmob-cdn-7744.b0.upaiyun.com/2016/11/23/95953c8b40f0d089800ebec438581cc4.png" mode="aspectFill"></image>
     <view>添加图片,把人脸加个猫脸就没人认出你了哦:)</view>
 </view>

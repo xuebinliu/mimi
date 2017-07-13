@@ -3,12 +3,6 @@
 var location = null;
 
 function getLocation(callback) {
-  if(getApp().globalData.isInCheck) {
-    // 审核状态不获取地理位置
-    callback(null);
-    return null;
-  }
-
   if(location) {
     if(callback) {
       callback(location);

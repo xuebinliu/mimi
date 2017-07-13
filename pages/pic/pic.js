@@ -166,4 +166,11 @@ Page({
     wx.stopPullDownRefresh();
   },
 
+  onShareAppMessage: function () {
+    return {
+      title: '匿名图片',
+      desc: '我的匿名图片',
+      path: '/pages/pic/pic'
+    }
+  }
 });
