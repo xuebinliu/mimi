@@ -20,17 +20,17 @@
 </view>
 
 <text class="noData" wx:if="{{!isInCheck && moodList.length<=0}}">
-  亲，附近还没有密码，来写一个吧:)
+  亲，附近还没有秘密，来写一个吧:)
 </text>
 
 <text class="noMoreData" wx:if="{{!isInCheck && !hasMoreData && moodList.length != 0}}">
   没有更多了
 </text>
 
-<view class="toVip" bindtap="tapVip" wx:if="{{!isInCheck}}">
-    <image style="width:100rpx; height:100rpx; border-radius:50rpx;" mode="scaleToFill" 
-      src="../../images/vip.png"/>
-</view>
+<!--<view class="toVip" bindtap="tapVip" wx:if="{{!isInCheck}}">-->
+    <!--<image style="width:100rpx; height:100rpx; border-radius:50rpx;" mode="scaleToFill" -->
+      <!--src="../../images/vip.png"/>-->
+<!--</view>-->
 
 <view class="toMine" bindtap="tapMine" wx:if="{{!isInCheck}}">
     <image style="width:100rpx; height:100rpx; border-radius:50rpx;" mode="scaleToFill" src="{{avatar}}"></image>
